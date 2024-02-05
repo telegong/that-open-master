@@ -39,6 +39,7 @@ export class Project {
         this.setUI()
     }
 
+    //creates the project card UI
     setUI() {
         //if (this.ui) {return}
         this.ui = document.createElement("div")
