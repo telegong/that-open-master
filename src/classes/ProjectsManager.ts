@@ -64,7 +64,6 @@ export class ProjectsManager {
                     default:
                         detail.textContent = value
                 }
-
             }
         }      
     }
