@@ -25,10 +25,79 @@ export class ProjectsManager {
             if (!(projectsPage && detailsPage)) {return}
             projectsPage.style.display = "none"
             detailsPage.style.display = "flex"
+            this.setDetailsPage(project)
         })
         this.ui.append(project.ui)
         this.list.push(project)
         return project
+    }
+
+    private setDetailsPage(project: Project){
+        const detailsPage = document.getElementById("project-details")
+        if (!detailsPage) { return }
+        const details = {
+            name: project.name,
+            description: project.description,
+            name_s: project.name,
+            description_s: project.description,
+            status: project.status,
+            userRole: project.userRole,
+            cost: project.cost,
+            finishDate: project.finishDate,
+            progress: project.progress
+        }
+        for (const key in details) {
+            const detail = detailsPage.querySelector(`[data-project-info='${key}']`)
+            if (detail) {
+                const value = details[key]
+                switch (key) {
+                    case "cost":
+                        detail.textContent = "$" + value
+                        break;
+                    case "finishDate":
+                        detail.textContent = `${value.getFullYear()}-${value.getMonth().toString().padStart(2,"0")}-${value.getDate().toString().padStart(2,"0")}`
+                        break;
+                    case "progress":
+                        detail.textContent = `${value * 100}%`
+                        detail.style.width = `${value * 100}%`
+                        break;
+                    default:
+                        detail.textContent = value
+                }
+
+            }
+        }      
+    }
+
+    private _setDetailsPage_(project: Project){
+        const detailsPage = document.getElementById("project-details")
+        if (!detailsPage) { return }
+        const name = detailsPage.querySelector("[data-project-info='name']")
+        if (name) { name.textContent = project.name }
+        const description = detailsPage.querySelector("[data-project-info='description']")
+        if (description) { description.textContent = project.description }
+        const name_s = detailsPage.querySelector("[data-project-info='name_s']")
+        if (name_s) { name_s.textContent = project.name }
+        const description_s = detailsPage.querySelector("[data-project-info='description_s']")
+        if (description_s) { description_s.textContent = project.description }
+        const status = detailsPage.querySelector("[data-project-info='status']")
+        if (status) { status.textContent = project.status }
+        const userRole = detailsPage.querySelector("[data-project-info='userRole']")
+        if (userRole) { userRole.textContent = project.userRole }
+        const cost = detailsPage.querySelector("[data-project-info='cost']")
+        if (cost) { cost.textContent = "$" + project.cost }
+        const finishDate = detailsPage.querySelector("[data-project-info='finishDate']")
+        if (finishDate) { 
+            finishDate.textContent = //project.finishDate.toLocaleDateString("ko-KR")
+                project.finishDate.getFullYear() + "-" +
+                project.finishDate.getMonth().toString().padStart(2,"0") + "-" +
+                project.finishDate.getDate().toString().padStart(2,"0")
+        }
+        const progress = detailsPage.querySelector("[data-project-info='progress']")
+        if (progress) { 
+            progress.textContent = project.progress * 100 + "%" 
+            progress.style.width = project.progress * 100 + "%"
+        }
     }
 
     getProject(id: string) {

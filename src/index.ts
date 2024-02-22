@@ -20,6 +20,7 @@ function toggleModal (id: string, action: "show" | "hide") {
 const projectsListUI = document.getElementById("projects-list") as HTMLElement
 const projectsManager = new ProjectsManager(projectsListUI)
 
+
 const newProjectBtn = document.getElementById("new-project-btn")
 if (newProjectBtn) {
     newProjectBtn.addEventListener("click",()=>{toggleModal("new-project-modal","show")} )
@@ -48,7 +49,7 @@ if (usersListPageBtn) {
     usersListPageBtn.addEventListener("click", () => {
         navPageSwitcher("users-page")
     })
-} else {
+} else {     
     console.warn("Users List button was not found")
 }
 
@@ -60,7 +61,7 @@ if (projectForm && projectForm instanceof HTMLFormElement) {
         const formData = new FormData(projectForm) 
         const projectData: IProject = {
             name:formData.get("name") as string, 
-            descirption:formData.get("description") as string, 
+            description:formData.get("description") as string, 
             userRole: formData.get("userRole") as UserRole,
             status: formData.get('status') as ProjectStatus,
             finishDate: new Date(formData.get('finishDate') as string),  
@@ -109,17 +110,16 @@ if(importProjectsBtn){
 
 
 
-
 // defaultProjectCreate
 const defaultProjectData: IProject = {
     name : "Default Project Name", 
-    descirption : "Housing Complex in Seoul",
+    description : "Housing Complex in Seoul",
     userRole : "Architect",
-    status : "Finished",
-    finishDate : new Date(11-11-2022),
+    status : "Active",
+    finishDate : new Date(2022,5,1),
 }
 const defaultProject = projectsManager.newProject(defaultProjectData)
 
-//console.log(defaultProject)
+console.log(defaultProject)
 
 
