@@ -5,7 +5,7 @@ export type ProjectStatus = "Pending" | "Active" | "Finished"
 
 export interface IProject {
     name: string 
-    descirption: string
+    description: string
     userRole: UserRole
     status: ProjectStatus
     finishDate: Date
@@ -14,15 +14,15 @@ export interface IProject {
 export class Project {
     //To Satisfy IProject
     name: string 
-    descirption: string
+    description: string
     userRole: "Architect" | "Engineer" | "Developer"
     status: "Pending" | "Active" | "Finished"
     finishDate: Date
 
     //Class internals
     ui: HTMLDivElement
-    cost: number = 10
-    progress: number = 0.1
+    cost: number = 100000
+    progress: number = 0.9
     id: string
     
     constructor(data: IProject) {
@@ -31,7 +31,7 @@ export class Project {
             this[key] = data[key];
         }
         // this.name = data.name
-        // this.descirption = data.descirption
+        // this.description = data.description
         // this.status = data.status
         // this.userRole = data.userRole
         // this.finishDate = data.finishDate
@@ -49,7 +49,7 @@ export class Project {
             <p style="background-color: #ca8134; padding: 10px; border-radius: 8px; aspect-ratio: 1;">HC</p>
             <div>
                 <h5>${this.name}</h5>
-                <p>${this.descirption}</p>
+                <p>${this.description}</p>
             </div>
         </div>
         <div class="card-content">
