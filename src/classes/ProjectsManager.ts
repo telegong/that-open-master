@@ -55,7 +55,7 @@ export class ProjectsManager {
                         detail.textContent = "$" + value
                         break;
                     case "finishDate":
-                        detail.textContent = `${value.getFullYear()}-${value.getMonth().toString().padStart(2,"0")}-${value.getDate().toString().padStart(2,"0")}`
+                        detail.textContent = `${value.getFullYear()}-${(value.getMonth()+1).toString().padStart(2,"0")}-${value.getDate().toString().padStart(2,"0")}`
                         break;
                     case "progress":
                         detail.textContent = `${value * 100}%`
