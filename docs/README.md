@@ -32,7 +32,7 @@ Certainly! To expose your VITE server to the Local Area Network (LAN), you can u
 Command Line (Terminal):
 While running your VITE application, open your terminal or command prompt.
 Use the following command:
-npm run dev -- --host
+> npm run dev -- --host
 
 This will start your VITE development server and expose it to other devices on the same network.
 Update package.json:
@@ -109,14 +109,14 @@ Using the --host Flag:
 While running your VITE application, open your terminal or command prompt.
 Navigate to your project directory.
 Use the following command, replacing 192.168.1.100 with your desired IP address:
-npm run dev -- --host 192.168.1.100
+> npm run dev -- --host 192.168.1.100
 
 This will start your VITE development server and make it accessible on the specified IP address within your WiFi network.
 Using npx (if you don’t want to modify package.json):
 Open your terminal or command prompt.
 Navigate to your project directory.
 Run the following command:
-npx vite --host 192.168.1.100
+> npx vite --host 192.168.1.100
 
 Make sure to issue the command from your project’s root directory (where your package.json file is located).
 Remember that exposing your VITE application to the network makes all files in your project accessible to anyone on the network, so ensure proper security measures if needed. Happy coding! 🚀
