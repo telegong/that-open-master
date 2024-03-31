@@ -177,4 +177,18 @@ PS D:\ThatOpenMaster\masterbimdev\that-open-master> npx vite --host 172.30.1.36
 
   ➜  Network: http://172.30.1.36:5173/
   ➜  press h + enter to show help
+
+
+PS D:\ThatOpenMaster\masterbimdev\projectList-copilot> npx vite                
+Need to install the following packages:
+vite@5.2.7
+Ok to proceed? (y) y
+Port 5173 is in use, trying another one...
+
+  VITE v5.2.7  ready in 416 ms      
+
+  ➜  Local:   http://localhost:5174/
+  ➜  Network: use --host to expose  
+  ➜  press h + enter to show help   
 ```
+
