@@ -37,7 +37,7 @@ export class Project {
         // this.finishDate = data.finishDate
         this.id = uuidv4()
         this.setUI()
-    }
+    } 
 
     //creates the project card UI
     setUI() {
