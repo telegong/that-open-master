@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Master Class Dev Project</title>
     <!--link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" /!-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" />
     <link rel="stylesheet" href="style.css">
@@ -170,6 +170,58 @@
         
         <div class="page" id="project-details" style="display: none;">
         <!-- <div class="page" id="project-details" style="display: flex;"> -->
+            <dialog id="edit-project-modal">
+                <form id="edit-project-form">
+                    <h2>Edit Project</h2>
+                    <div class="input-list">
+                        <div class="form-field-container">
+                            <label><span class="material-icons-round">apartment </span>Name</label>
+                            <input name="name" type="text" placeholder="What's the name of your project?">
+                            <p style="color: gray; font-size: var(--font-sm); margin-top: 5px; font-style: italic;">TIP: Give it a short name</p>
+                        </div>
+                        <div class="form-field-container">
+                            <label><span class="material-icons-round">subject </span>Description</label>
+                            <textarea name="description" cols="30" rows="5" placeholder="Give your project a nice description! So people is jealous about it"></textarea>
+                        </div>
+                        <div class="form-field-container">
+                            <label><span class="material-icons-round">person </span>Role</label>
+                            <select name="userRole">
+                                <option>Architect</option>
+                                <option>Engineer</option>
+                                <option>Developer</option>
+                            </select>
+                        </div>
+                        <div class="form-field-container">
+                            <label><span class="material-icons-round">not_listed_location </span>Status</label>
+                            <select name="status">
+                                <option>Pending</option>
+                                <option>Active</option>
+                                <option>Finished</option>
+                            </select>
+                        </div>
+                        <div class="form-field-container">
+                            <label><span class="material-icons-round">calendar_month </span>Finish Date</label>
+                            <input name="finishDate" type="date" ></input>
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: flex-end; margin: 10px 0px 10px auto; column-gap: 10px;">
+                        <button id="project-input-canel" type="button" style="background-color: transparent;">Cancel</button>
+                        <button type="submit" style="background-color: rgb(18, 145, 18);">Accept</button>
+                    </div>
+                </form>
+            </dialog>
+            <dialog id="error-message-modal">
+                <h2>Error Occured</h2>
+                <div class="form-error-message">
+                    <label>
+                        <span class="material-icons-round">error </span>
+                        <span id="error-message">Error Message here!</span>
+                    </label>
+                </div>
+                <div style="display: flex; justify-content: flex-end;">
+                    <button id="error-message-check-button">Check</button>
+                </div>
+            </dialog>
             <header>
                 <div>
                     <h2 data-project-info="name">Hospital Center</h2>
@@ -239,7 +291,7 @@
                 <div id="viewer-container" class="dashboard-card"></div>
             </div>
         </div>
-
+ 
         <!-- <div class="page" id="users-page" > -->
         <div class="page" id="users-page" style="display: none;">
             <dialog id="new-user-modal">

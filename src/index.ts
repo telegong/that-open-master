@@ -30,7 +30,7 @@ if (newProjectBtn) {
 
 const editProjectBtn = document.getElementById("edit-project-btn")
 if (editProjectBtn) {
-    editProjectBtn.addEventListener("click",()=>{toggleModal("new-project-modal","show")} )
+    editProjectBtn.addEventListener("click",()=>{toggleModal("edit-project-modal","show")} )
 } else {
     console.warn("Edit projects button was not found")
 }
@@ -62,6 +62,7 @@ if (usersListPageBtn) {
 
 //====양식 값 가져오기=====
 const projectForm = document.getElementById("new-project-form")
+
 if (projectForm && projectForm instanceof HTMLFormElement) {
     projectForm.addEventListener("submit", (e) => {
         e.preventDefault()
@@ -115,7 +116,7 @@ if(importProjectsBtn){
     })
 }
 
-
+ 
 
 // defaultProjectCreate
 const defaultProjectData: IProject = {

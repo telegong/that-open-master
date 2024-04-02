@@ -15,8 +15,10 @@ export class Project {
     //To Satisfy IProject
     name: string 
     description: string
-    userRole: "Architect" | "Engineer" | "Developer"
-    status: "Pending" | "Active" | "Finished"
+    userRole: UserRole
+    // userRole: "Architect" | "Engineer" | "Developer"
+    status: ProjectStatus
+    // status: "Pending" | "Active" | "Finished"
     finishDate: Date
 
     //Class internals
@@ -37,7 +39,7 @@ export class Project {
         // this.finishDate = data.finishDate
         this.id = uuidv4()
         this.setUI()
-    }
+    } 
 
     //creates the project card UI
     setUI() {

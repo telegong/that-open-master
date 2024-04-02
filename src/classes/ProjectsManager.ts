@@ -122,7 +122,6 @@ export class ProjectsManager {
         })
         this.list = remaining
     }
-
         
     totalCostOfAllProjects() {
         // const totalCost: number = this.list.reduce((acc, cur, idx) => {return acc += cur.cost}, 0)
@@ -137,6 +136,9 @@ export class ProjectsManager {
         return project
     }
 
+    editProject(project: Project) {
+        
+    }
 
     exportToJSON(fileName: string = "projects") {
         const json = JSON.stringify(this.list, null, 2)
