@@ -107,6 +107,12 @@ export class ProjectsManager {
         return project
     }
 
+    editProject(id: string) {
+        const project = this.getProject(id)
+        if(!project) { return }
+        
+    }
+
     deleteProject(id: string) {
         const project = this.getProject(id)
         if(!project) { return }

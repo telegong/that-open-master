@@ -28,6 +28,13 @@ if (newProjectBtn) {
     console.warn("New projects button was not found")
 }
 
+const editProjectBtn = document.getElementById("edit-project-btn")
+if (editProjectBtn) {
+    editProjectBtn.addEventListener("click",()=>{toggleModal("new-project-modal","show")} )
+} else {
+    console.warn("Edit projects button was not found")
+}
+
 function navPageSwitcher (id : string) {
     const pages = document.querySelectorAll('.page')
     for (const page of pages) {
