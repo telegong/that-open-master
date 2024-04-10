@@ -65,7 +65,17 @@ export class ProjectsManager {
                         detail.textContent = value
                 }
             }
-        }      
+        }  
+        
+        // const editProjectBtn = document.getElementById("edit-project-btn")
+        // if (editProjectBtn) {
+        //     editProjectBtn.addEventListener("click",()=>{
+        //         //toggleModal("edit-project-modal","show")
+        //         this.editProject(project)
+        //     })
+        // } else {
+        //     console.warn("Edit projects button was not found")
+        // }
     }
 
     private _setDetailsPage_(project: Project){
@@ -107,10 +117,13 @@ export class ProjectsManager {
         return project
     }
 
-    editProject(id: string) {
-        const project = this.getProject(id)
+    editProject(project: Project) {
         if(!project) { return }
-        
+        // update project from edit dialog form input data 
+        // set project setdetailspage
+        console.log("let's Edit Project Items!")
+        console.log(project)
+        return
     }
 
     deleteProject(id: string) {
@@ -136,9 +149,6 @@ export class ProjectsManager {
         return project
     }
 
-    editProject(project: Project) {
-        
-    }
 
     exportToJSON(fileName: string = "projects") {
         const json = JSON.stringify(this.list, null, 2)

@@ -30,7 +30,10 @@ if (newProjectBtn) {
 
 const editProjectBtn = document.getElementById("edit-project-btn")
 if (editProjectBtn) {
-    editProjectBtn.addEventListener("click",()=>{toggleModal("edit-project-modal","show")} )
+    editProjectBtn.addEventListener("click",()=>{
+        toggleModal("edit-project-modal","show")
+        // this.editProject(project)
+    })
 } else {
     console.warn("Edit projects button was not found")
 }
@@ -60,7 +63,7 @@ if (usersListPageBtn) {
     console.warn("Users List button was not found")
 }
 
-//====양식 값 가져오기=====
+//====생성 프로젝트 양식 값 가져오기=====
 const projectForm = document.getElementById("new-project-form")
 
 if (projectForm && projectForm instanceof HTMLFormElement) {
