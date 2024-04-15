@@ -117,7 +117,7 @@ export class ProjectsManager {
         return project
     }
 
-    editProject(project: Project) {
+    editProject(project: IProject) {
         if(!project) { return }
         // update project from edit dialog form input data 
         // set project setdetailspage
@@ -186,5 +186,7 @@ export class ProjectsManager {
         })
         input.click()
     }
-
+    y4m2d2(date: Date){
+        return `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2,"0")}-${date.getDate().toString().padStart(2,"0")}`
+    }
 }
