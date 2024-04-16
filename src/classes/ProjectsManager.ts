@@ -117,8 +117,8 @@ export class ProjectsManager {
         return project
     }
 
-    editProject(project: IProject) {
-        if(!project) { return }
+    editProject(data: IProject, project: Project) {
+        if(!data || !project) { return }
         // update project from edit dialog form input data 
         // set project setdetailspage
         console.log("let's Edit Project Items!")
