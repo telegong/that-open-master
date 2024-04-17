@@ -37,12 +37,12 @@ if (editProjectBtn) {
         if (!projectDetails) return
         const projectName = projectDetails.querySelector("[data-project-info='name']")
         console.log(projectName?.textContent)
-        const project = projectsManager.getProjectByName(projectName?.textContent)
-        console.log(project,"before")
+        let project = projectsManager.getProjectByName(projectName?.textContent)
+        //console.log(project,"before")
 
         toggleModal("edit-project-modal","show")
 
-        console.log(projectsManager.list,"after")
+        //console.log(projectsManager.list,"after")
         const editProjectForm = document.getElementById("edit-project-form")
         if (editProjectForm && editProjectForm instanceof HTMLFormElement) {
         // if (true) {
@@ -68,15 +68,25 @@ if (editProjectBtn) {
                 e.preventDefault()
                 // const editformData = new FormData(editProjectForm) 
                 const formData = new FormData(editProjectForm) 
-                const editProjectData: IProject = {
-                    name:formData.get("name") as string, 
-                    description:formData.get("description") as string, 
-                    userRole: formData.get("userRole") as UserRole,
-                    status: formData.get('status') as ProjectStatus,
-                    finishDate: new Date(formData.get('finishDate') as string),  
-                }
+                // const editProjectData: IProject = {
+                    project.name = formData.get("name") as string
+                    project.description = formData.get("description") as string
+                    project.userRole = formData.get("userRole") as UserRole
+                    project.status = formData.get('status') as ProjectStatus
+                    project.finishDate = new Date(formData.get('finishDate') as string)  
+                // }
+                // const editProjectData: IProject = {
+                //     name:formData.get("name") as string, 
+                //     description:formData.get("description") as string, 
+                //     userRole: formData.get("userRole") as UserRole,
+                //     status: formData.get('status') as ProjectStatus,
+                //     finishDate: new Date(formData.get('finishDate') as string),  
+                // }
                 try {
-                    projectsManager.editProject(editProjectData, project)
+                    console.log(project)//, editProjectData,"before")
+                    projectsManager.editProject(project)
+                    //project = editProjectData
+                    // console.log(project,"after")
                     editProjectForm.reset()
                     toggleModal("edit-project-modal","hide")
                 } catch (err) {
@@ -94,8 +104,8 @@ if (editProjectBtn) {
                 toggleModal("error-message-modal","hide")
             })
 
-            const projectInputCancelBTN = document.getElementById("edit-project-input-canel") as HTMLButtonElement
-            projectInputCancelBTN.addEventListener("click", () => {
+            const editProjectInputCancelBTN = document.getElementById("edit-project-input-canel") as HTMLButtonElement
+            editProjectInputCancelBTN.addEventListener("click", () => {
                 editProjectForm.reset()
                 toggleModal("edit-project-modal","hide")
             })
