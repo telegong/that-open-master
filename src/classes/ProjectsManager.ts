@@ -125,7 +125,17 @@ export class ProjectsManager {
         let oldproject = this.getProjectByName(project.name)
         console.log(oldproject)
         this.setDetailsPage(project)
+        oldproject.setUI()
+        // let oldmanagerui = this.ui.getElementById(`div#${project.name}.project-card`)
+        const el = this.ui.querySelector(`[pname='${project.name}']`)
+        console.log(el)
+        let oldmanagerui = this.ui//.querySelector(`div#${project.name}`)
+        console.log(oldmanagerui)
+        oldmanagerui = oldproject.ui
+        console.log(oldmanagerui)
         console.log(this.ui)
+        // console.log(this.ui.querySelector(`div#${project.name}.project-card`))
+        console.log(this.list)
         return
     }
 

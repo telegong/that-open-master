@@ -46,6 +46,7 @@ export class Project {
         //if (this.ui) {return}
         this.ui = document.createElement("div")
         this.ui.className = "project-card"
+        this.ui.setAttribute("pname", this.name)
         this.ui.innerHTML = `
         <div class="card-header">
             <p style="background-color: #ca8134; padding: 10px; border-radius: 8px; aspect-ratio: 1;">HC</p>

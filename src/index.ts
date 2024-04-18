@@ -37,7 +37,7 @@ if (editProjectBtn) {
         if (!projectDetails) return
         const projectName = projectDetails.querySelector("[data-project-info='name']")
         console.log(projectName?.textContent)
-        let project = projectsManager.getProjectByName(projectName?.textContent)
+        let curProject = projectsManager.getProjectByName(projectName?.textContent)
         //console.log(project,"before")
 
         toggleModal("edit-project-modal","show")
@@ -47,17 +47,17 @@ if (editProjectBtn) {
         if (editProjectForm && editProjectForm instanceof HTMLFormElement) {
         // if (true) {
             let defaultName = editProjectForm.querySelector("input[name='name']")
-            defaultName.value = project?.name
-            //defaultDescription = `<textarea name="description" cols="30" rows="5">${project?.description} </textarea>`
+            defaultName.value = curProject?.name
+            //defaultDescription = `<textarea name="description" cols="30" rows="5">${curProject?.description} </textarea>`
             let defaultDescription = editProjectForm.querySelector("textarea[name='description']")
-            defaultDescription.value = project?.description
+            defaultDescription.value = curProject?.description
             let defaultUserRole = editProjectForm.querySelector("select[name='userRole']")
-            defaultUserRole.value = project?.userRole
+            defaultUserRole.value = curProject?.userRole
             let defaultStatus = editProjectForm.querySelector("select[name='status']")
-            defaultStatus.value = project?.status
+            defaultStatus.value = curProject?.status
             let defaultFinishDate = editProjectForm.querySelector("input[name='finishDate']")
-            defaultFinishDate.value = projectsManager.y4m2d2(project?.finishDate)
-            // defaultFinishDate.value = project?.finishDate.toISOString().slice(0, 10);
+            defaultFinishDate.value = projectsManager.y4m2d2(curProject?.finishDate)
+            // defaultFinishDate.value = curProject?.finishDate.toISOString().slice(0, 10);
             // console.log(defaultDescription.value,'\r\n'
             //             ,defaultUserRole.value,'\r\n'
             //             ,defaultStatus.value,'\r\n'
@@ -69,11 +69,11 @@ if (editProjectBtn) {
                 // const editformData = new FormData(editProjectForm) 
                 const formData = new FormData(editProjectForm) 
                 // const editProjectData: IProject = {
-                    project.name = formData.get("name") as string
-                    project.description = formData.get("description") as string
-                    project.userRole = formData.get("userRole") as UserRole
-                    project.status = formData.get('status') as ProjectStatus
-                    project.finishDate = new Date(formData.get('finishDate') as string)  
+                    curProject.name = formData.get("name") as string
+                    curProject.description = formData.get("description") as string
+                    curProject.userRole = formData.get("userRole") as UserRole
+                    curProject.status = formData.get('status') as ProjectStatus
+                    curProject.finishDate = new Date(formData.get('finishDate') as string)  
                 // }
                 // const editProjectData: IProject = {
                 //     name:formData.get("name") as string, 
@@ -83,8 +83,8 @@ if (editProjectBtn) {
                 //     finishDate: new Date(formData.get('finishDate') as string),  
                 // }
                 try {
-                    console.log(project)//, editProjectData,"before")
-                    projectsManager.editProject(project)
+                    console.log(curProject)//, editProjectData,"before")
+                    projectsManager.editProject(curProject)
                     //project = editProjectData
                     // console.log(project,"after")
                     editProjectForm.reset()
@@ -277,8 +277,11 @@ const defaultProjectData: IProject = {
     status : "Active",
     finishDate : new Date(2022,5,1),
 }
-const defaultProject = projectsManager.newProject(defaultProjectData)
+if(projectsManager.list.length == 0){
 
-console.log(defaultProject)
+    const defaultProject = projectsManager.newProject(defaultProjectData)
+    console.log(defaultProject)
+}
+
 
 
