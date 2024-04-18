@@ -17,13 +17,16 @@ function toggleModal (id: string, action: "show" | "hide") {
     }             
 }
 
-const projectsListUI = document.getElementById("projects-list") as HTMLElement
+let projectsListUI = document.getElementById("projects-list") as HTMLElement
 const projectsManager = new ProjectsManager(projectsListUI)
 
 
 const newProjectBtn = document.getElementById("new-project-btn")
 if (newProjectBtn) {
-    newProjectBtn.addEventListener("click",()=>{toggleModal("new-project-modal","show")} )
+    newProjectBtn.addEventListener("click",()=>{
+        toggleModal("new-project-modal","show")
+        projectsListUI = projectsManager.ui
+    } )
 } else {
     console.warn("New projects button was not found")
 }
@@ -145,6 +148,7 @@ const projectsListPageBtn = document.getElementById("projects-list-page-button")
 if (projectsListPageBtn) {
     projectsListPageBtn.addEventListener("click", () => {
         navPageSwitcher("projects-page")
+        projectsListUI = projectsManager.ui
     })
 } else {
     console.warn("Projects List button was not found")

@@ -122,17 +122,16 @@ export class ProjectsManager {
         // update project from edit dialog form input data 
         // set project setdetailspage
         console.log("let's update Project Items!")
-        let oldproject = this.getProjectByName(project.name)
-        console.log(oldproject)
+        // let oldproject = this.getProjectByName(project.name)
+        console.log(project)
+        project.setUI()
         this.setDetailsPage(project)
-        oldproject.setUI()
-        // let oldmanagerui = this.ui.getElementById(`div#${project.name}.project-card`)
-        const el = this.ui.querySelector(`[pname='${project.name}']`)
-        console.log(el)
-        let oldmanagerui = this.ui//.querySelector(`div#${project.name}`)
-        console.log(oldmanagerui)
-        oldmanagerui = oldproject.ui
-        console.log(oldmanagerui)
+        this.ui.replaceWith(project.ui)
+        // let oldmanagerui = this.ui.querySelector(`[pname='${project.name}']`)
+        // this.ui.querySelector(`[pname='${project.name}']`)?.innerHTML.replace(oldproject.ui)
+        // this.ui.append(oldproject.ui)
+        // oldmanagerui = oldproject.ui
+        // console.log(oldmanagerui)
         console.log(this.ui)
         // console.log(this.ui.querySelector(`div#${project.name}.project-card`))
         console.log(this.list)
