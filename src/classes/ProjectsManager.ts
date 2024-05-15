@@ -66,47 +66,6 @@ export class ProjectsManager {
                 }
             }
         }  
-        
-        // const editProjectBtn = document.getElementById("edit-project-btn")
-        // if (editProjectBtn) {
-        //     editProjectBtn.addEventListener("click",()=>{
-        //         //toggleModal("edit-project-modal","show")
-        //         this.editProject(project)
-        //     })
-        // } else {
-        //     console.warn("Edit projects button was not found")
-        // }
-    }
-
-    private _setDetailsPage_(project: Project){
-        const detailsPage = document.getElementById("project-details")
-        if (!detailsPage) { return }
-        const name = detailsPage.querySelector("[data-project-info='name']")
-        if (name) { name.textContent = project.name }
-        const description = detailsPage.querySelector("[data-project-info='description']")
-        if (description) { description.textContent = project.description }
-        const name_s = detailsPage.querySelector("[data-project-info='name_s']")
-        if (name_s) { name_s.textContent = project.name }
-        const description_s = detailsPage.querySelector("[data-project-info='description_s']")
-        if (description_s) { description_s.textContent = project.description }
-        const status = detailsPage.querySelector("[data-project-info='status']")
-        if (status) { status.textContent = project.status }
-        const userRole = detailsPage.querySelector("[data-project-info='userRole']")
-        if (userRole) { userRole.textContent = project.userRole }
-        const cost = detailsPage.querySelector("[data-project-info='cost']")
-        if (cost) { cost.textContent = "$" + project.cost }
-        const finishDate = detailsPage.querySelector("[data-project-info='finishDate']")
-        if (finishDate) { 
-            finishDate.textContent = //project.finishDate.toLocaleDateString("ko-KR")
-                project.finishDate.getFullYear() + "-" +
-                project.finishDate.getMonth().toString().padStart(2,"0") + "-" +
-                project.finishDate.getDate().toString().padStart(2,"0")
-        }
-        const progress = detailsPage.querySelector("[data-project-info='progress']")
-        if (progress) { 
-            progress.textContent = project.progress * 100 + "%" 
-            progress.style.width = project.progress * 100 + "%"
-        }
     }
 
     getProject(id: string) {
@@ -122,19 +81,12 @@ export class ProjectsManager {
         // update project from edit dialog form input data 
         // set project setdetailspage
         console.log("let's update Project Items!")
-        // let oldproject = this.getProjectByName(project.name)
-        console.log(project)
-        project.setUI()
-        this.setDetailsPage(project)
-        this.ui.replaceWith(project.ui)
-        // let oldmanagerui = this.ui.querySelector(`[pname='${project.name}']`)
-        // this.ui.querySelector(`[pname='${project.name}']`)?.innerHTML.replace(oldproject.ui)
-        // this.ui.append(oldproject.ui)
-        // oldmanagerui = oldproject.ui
-        // console.log(oldmanagerui)
-        console.log(this.ui)
-        // console.log(this.ui.querySelector(`div#${project.name}.project-card`))
-        console.log(this.list)
+
+
+        project.updateUI()
+        //this.setDetailsPage(project)
+        //this.ui.replaceWith(project.ui)
+
         return
     }
 

@@ -74,5 +74,37 @@ export class Project {
             </div>
         </div> `
     }
+    
+    //update the project card UI
+    updateUI() {
+
+        this.ui.setAttribute("pname", this.name)
+        this.ui.innerHTML = `
+        <div class="card-header">
+            <p style="background-color: #ca8134; padding: 10px; border-radius: 8px; aspect-ratio: 1;">HC</p>
+            <div>
+                <h5>${this.name}</h5>
+                <p>${this.description}</p>
+            </div>
+        </div>
+        <div class="card-content">
+            <div class="card-property">
+                <p style="color: #969696;">Status</p>
+                <p>${this.status}</p>
+            </div>
+            <div class="card-property">
+                <p style="color: #969696;">Role</p>
+                <p>${this.userRole}</p>
+            </div>
+            <div class="card-property">
+                <p style="color: #969696;">Cost</p>
+                <p>$${this.cost}</p>
+            </div>
+            <div class="card-property">
+                <p style="color: #969696;">Estimated Progress</p>
+                <p>${this.progress * 100}%</p>
+            </div>
+        </div> `
+    }
 }
 
