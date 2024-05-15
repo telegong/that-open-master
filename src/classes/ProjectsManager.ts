@@ -1,5 +1,5 @@
 import { IProject, Project } from "./Project"
-// import { toggleModal } from "../index"
+
 
 export class ProjectsManager {
     list: Project[] = []
@@ -84,10 +84,8 @@ export class ProjectsManager {
 
 
         project.updateUI()
-        //this.setDetailsPage(project)
-        //this.ui.replaceWith(project.ui)
-
-        return
+        this.setDetailsPage(project)
+        return project
     }
 
     deleteProject(id: string) {
