@@ -54,8 +54,8 @@ export class ProjectsManager {
                     case "cost":
                         detail.textContent = "$" + value
                         break;
-                    case "finishDate":
-                        detail.textContent = `${value.getFullYear()}-${(value.getMonth()+1).toString().padStart(2,"0")}-${value.getDate().toString().padStart(2,"0")}`
+                    case "finishDate":                        
+                        detail.textContent = this.y4m2d2(value)
                         break;
                     case "progress":
                         detail.textContent = `${value * 100}%`
@@ -63,6 +63,7 @@ export class ProjectsManager {
                         break;
                     default:
                         detail.textContent = value
+                    
                 }
             }
         }  
@@ -76,16 +77,13 @@ export class ProjectsManager {
         return project
     }
 
-    editProject(project: Project) {
-        if(!project) { return }
-        // update project from edit dialog form input data 
-        // set project setdetailspage
-        console.log("let's update Project Items!")
-
-
+    editProject(projectName: string, updateData: IProject) {
+        if(!projectName) { return }
+        const project: Project = this.getProjectByName(projectName) as Project
+        Object.assign(project, updateData)
         project.updateUI()
         this.setDetailsPage(project)
-        return project
+        return 
     }
 
     deleteProject(id: string) {
@@ -148,7 +146,8 @@ export class ProjectsManager {
         })
         input.click()
     }
-    y4m2d2(date: Date){
+    y4m2d2(value: any){
+        const date = new Date(value)
         return `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2,"0")}-${date.getDate().toString().padStart(2,"0")}`
     }
 }
