@@ -58,7 +58,7 @@ if (usersListPageBtn) {
     console.warn("Users List button was not found")
 }
 
-//====생성 프로젝트 양식 값 가져오기=====
+//====Get created values from form 생성 프로젝트 양식 값 가져오기=====
 const projectForm = document.getElementById("new-project-form")
 
 if (projectForm && projectForm instanceof HTMLFormElement) {
@@ -121,8 +121,6 @@ if (editProjectBtn) {
         let projectName = projectDetails.querySelector("[data-project-info='name']")?.textContent as string
         if (!projectName) return
         console.log(projectName)
-        // const curProject = projectsManager.getProjectByName(projectName?.textContent || "")
-        // if (!curProject) return
 
         toggleModal("edit-project-modal","show")
 
@@ -132,25 +130,19 @@ if (editProjectBtn) {
         if (editProjectForm instanceof HTMLFormElement  ) {            
             const defaultName = editProjectForm.querySelector("input[name='name']") as HTMLInputElement            
             defaultName.value = projectDetails.querySelector("[data-project-info='name']")?.textContent as string
-                //curProject?.name || "curProject None - projectNameNone"
             const defaultDescription = editProjectForm.querySelector("textarea[name='description']") as HTMLInputElement
             defaultDescription.value = projectDetails.querySelector("[data-project-info='description']")?.textContent as string
-                //curProject?.description || "curProject None"
             const defaultUserRole = editProjectForm.querySelector("select[name='userRole']") as HTMLInputElement
             defaultUserRole.value = projectDetails.querySelector("[data-project-info='userRole']")?.textContent as string
-                //curProject?.userRole || "curProject None"
             const defaultStatus = editProjectForm.querySelector("select[name='status']") as HTMLInputElement
             defaultStatus.value = projectDetails.querySelector("[data-project-info='status']")?.textContent as string
-                //curProject?.status || "curProject None"
             const defaultFinishDate = editProjectForm.querySelector("input[name='finishDate']") as HTMLInputElement
             defaultFinishDate.value = projectDetails.querySelector("[data-project-info='finishDate']")?.textContent as string
-                //projectsManager.y4m2d2(curProject?.finishDate || new Date())
-            // 수정 값 가져오기
+
+            // Get edited values from form 수정 값 가져오기
             editProjectForm.addEventListener("submit", (e) => {
                 e.preventDefault()
                 const formData = new FormData(editProjectForm) 
-                // const curProject = projectsManager.getProjectByName(defaultName.value || "")
-                // if (!curProject) return
                 try {
                     const updateData = {
                         name : formData.get("name") as string,
@@ -161,9 +153,9 @@ if (editProjectBtn) {
                     }
 
                     projectsManager.editProject(projectName, updateData)
-                    //editProjectForm.reset() //index.html 폼 데이터 상태로 프로젝트 값이 없어진다. 에러발생 원인
+                    //editProjectForm.reset() //index.html 폼 데이터 상태로 프로젝트 값이 없어진다. Error발생 원인
                     toggleModal("edit-project-modal","hide")
-                    //editProjectForm.reset()
+
                     
                 } catch (err) {
                     const errorMessage = document.getElementById("edit-error-message") as HTMLElement
@@ -171,8 +163,7 @@ if (editProjectBtn) {
                     toggleModal("edit-error-message-modal", "show")
                 
                 } finally {
-                    //editProjectForm.reset()
-                    projectName =""
+                    projectName ="" // Initialize projectName of current details 프로젝트 이름만 초기화
                 }
             })    
 
@@ -197,77 +188,6 @@ if (editProjectBtn) {
     console.warn("Edit projects button was not found")
 }
 
-//const editProjectBtn = document.getElementById("edit-project-btn")
-// if (editProjectBtn) {
-//     editProjectBtn.addEventListener("click", ()=>{
-//         const projectDetails = document.getElementById("project-details")
-//         if (!projectDetails) return
-//         const projectName = projectDetails.querySelector("[data-project-info='name']")
-//         console.log(projectName?.textContent || "projectName.textContext 값이 없네요!")
-//         const curProject = projectsManager.getProjectByName(projectName?.textContent || "")
-        
-//         toggleModal("edit-project-modal","show")
-
-//         // Edit Project in Project Details Page
-//         const editProjectForm = document.getElementById("edit-project-form")
-        
-//         if (editProjectForm instanceof HTMLFormElement  ) {            
-//             const defaultName = editProjectForm.querySelector("input[name='name']") as HTMLInputElement            
-//             defaultName.value = curProject?.name || "curProject None - projectNameNone"
-//             const defaultDescription = editProjectForm.querySelector("textarea[name='description']") as HTMLInputElement
-//             defaultDescription.value = curProject?.description || "curProject None"
-//             const defaultUserRole = editProjectForm.querySelector("select[name='userRole']") as HTMLInputElement
-//             defaultUserRole.value = curProject?.userRole || "curProject None"
-//             const defaultStatus = editProjectForm.querySelector("select[name='status']") as HTMLInputElement
-//             defaultStatus.value = curProject?.status || "curProject None"
-//             const defaultFinishDate = editProjectForm.querySelector("input[name='finishDate']") as HTMLInputElement
-//             defaultFinishDate.value = projectsManager.y4m2d2(curProject?.finishDate || new Date())
-//             // 수정 값 가져오기
-//             editProjectForm.addEventListener("submit", (e) => {
-//                 e.preventDefault()
-//                 const formData = new FormData(editProjectForm) 
-//                 try {
-//                     curProject.name = formData.get("name") as string
-//                     curProject.description = formData.get("description") as string
-//                     curProject.userRole = formData.get("userRole") as UserRole
-//                     curProject.status = formData.get('status') as ProjectStatus
-//                     curProject.finishDate = new Date(formData.get('finishDate') as string)  
-
-//                     projectsManager.editProject(curProject)
-//                     //editProjectForm.reset() //index.html 폼 데이터 상태로 프로젝트 값이 없어진다. 에러발생 원인
-//                     toggleModal("edit-project-modal","hide")
-//                     //editProjectForm.reset()
-                    
-//                 } catch (err) {
-//                     const errorMessage = document.getElementById("edit-error-message") as HTMLElement
-//                     errorMessage.textContent=`Error: ${err.message}`
-//                     toggleModal("edit-error-message-modal", "show")
-                
-//                 } finally {
-//                     //editProjectForm.reset()
-//                 }
-//             })    
-
-//             const errorMessagCheckBTN = document.getElementById("error-message-check-button") as HTMLButtonElement
-//             errorMessagCheckBTN.addEventListener("click",()=>{
-//                 toggleModal("edit-error-message-modal","hide")
-//             })
-
-//             const editProjectInputCancelBTN = document.getElementById("edit-project-input-canel") as HTMLButtonElement
-//             editProjectInputCancelBTN.addEventListener("click", () => {
-//                 editProjectForm.reset()
-//                 toggleModal("edit-project-modal","hide")
-                
-//             })
-
-//         } else {
-//             console.warn("The project form was not found. Check the ID!")
-//         }
-
-//     })
-// } else {
-//     console.warn("Edit projects button was not found")
-// }
 
  // defaultProjectCreate
  if(projectsManager.list.length == 0){
