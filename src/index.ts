@@ -78,7 +78,7 @@ if (projectForm && projectForm instanceof HTMLFormElement) {
             toggleModal("new-project-modal","hide")
         } catch (err) {
             const errorMessage = document.getElementById("error-message") as HTMLElement
-            errorMessage.textContent=`${err}`
+            errorMessage.textContent=`${err.message}`
             toggleModal("error-message-modal", "show")
         }
     })    
@@ -127,17 +127,18 @@ if (editProjectBtn) {
         // Edit Project in Project Details Page
         const editProjectForm = document.getElementById("edit-project-form")
         
-        if (editProjectForm instanceof HTMLFormElement  ) {            
-            const defaultName = editProjectForm.querySelector("input[name='name']") as HTMLInputElement            
-            defaultName.value = projectDetails.querySelector("[data-project-info='name']")?.textContent as string
-            const defaultDescription = editProjectForm.querySelector("textarea[name='description']") as HTMLInputElement
-            defaultDescription.value = projectDetails.querySelector("[data-project-info='description']")?.textContent as string
-            const defaultUserRole = editProjectForm.querySelector("select[name='userRole']") as HTMLInputElement
-            defaultUserRole.value = projectDetails.querySelector("[data-project-info='userRole']")?.textContent as string
-            const defaultStatus = editProjectForm.querySelector("select[name='status']") as HTMLInputElement
-            defaultStatus.value = projectDetails.querySelector("[data-project-info='status']")?.textContent as string
-            const defaultFinishDate = editProjectForm.querySelector("input[name='finishDate']") as HTMLInputElement
-            defaultFinishDate.value = projectDetails.querySelector("[data-project-info='finishDate']")?.textContent as string
+        if (editProjectForm instanceof HTMLFormElement  ) {   
+            const preDatum = {
+                name: "input[name='name']",
+                description: "textarea[name='description']",
+                userRole: "select[name='userRole']",
+                status: "select[name='status']",
+                finishDate: "input[name='finishDate']",
+            } 
+            for (const key in preDatum) {
+                const pdata = editProjectForm.querySelector(preDatum[key]) as HTMLInputElement
+                pdata.value = projectDetails.querySelector(`[data-project-info='${key}']`)?.textContent as string
+            }
 
             // Get edited values from form 수정 값 가져오기
             editProjectForm.addEventListener("submit", (e) => {

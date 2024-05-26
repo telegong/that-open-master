@@ -6,9 +6,14 @@
     --primary-200: #415a66;
     --primary-300: #017cb3;
     --primary-400: #50b6e6;
-    --background: #202124;
+    --background: #1b0f29;
     --background-100: #06282b;
     --background-200: #3b3c3f;
+    --icon-char-bg-color0: #78b4b1;
+    --icon-char-bg-color1: #25a1c7;
+    --icon-char-bg-color2: #89887f;
+    --icon-char-bg-color3: #a8852b;
+    --icon-char-bg-color4: #c86648;
     --font-xs: 10px;
     --font-sm: 12px;
     --font-base: 14px;

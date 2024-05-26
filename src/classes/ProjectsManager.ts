@@ -37,6 +37,7 @@ export class ProjectsManager {
         if (!detailsPage) { return }
         const details = {
             name: project.name,
+            icon_char: project.name.slice(0,2),//[`${project.name.slice(0,2)}`,`${cardHeader.style.backgroundColor}`],
             description: project.description,
             name_s: project.name,
             description_s: project.description,
@@ -60,6 +61,13 @@ export class ProjectsManager {
                     case "progress":
                         detail.textContent = `${value * 100}%`
                         detail.style.width = `${value * 100}%`
+                        break;
+                    case "icon_char":
+                        detail.textContent = value
+                        const cardHeader = project.ui.querySelector('.card-header p')
+                        if(cardHeader){
+                            detail.style.backgroundColor = cardHeader.style.backgroundColor
+                        }
                         break;
                     default:
                         detail.textContent = value
