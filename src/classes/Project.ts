@@ -50,6 +50,7 @@ export class Project {
         const idx = Math.floor(Math.random() * 5)  // background-color: #ca8134; //var(--icon-char-bg-color${idx});  
         this.ui.setAttribute("icon-color", `var(--icon-char-bg-color${idx})`)
         this.updateUI()       
+        // console.log(this.ui)
     }
     
     //update the project card UI
