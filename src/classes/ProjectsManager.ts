@@ -37,7 +37,7 @@ export class ProjectsManager {
         if (!detailsPage) { return }
         const details = {
             name: project.name,
-            icon_char: project.name.slice(0,2),//[`${project.name.slice(0,2)}`,`${cardHeader.style.backgroundColor}`],
+            icon_char: [project.name.slice(0,2),project.ui.getAttribute("icon-color")], //project.iconColor],//[`${project.name.slice(0,2)}`,`${cardHeader.style.backgroundColor}`],
             description: project.description,
             name_s: project.name,
             description_s: project.description,
@@ -63,11 +63,12 @@ export class ProjectsManager {
                         detail.style.width = `${value * 100}%`
                         break;
                     case "icon_char":
-                        detail.textContent = value
-                        const cardHeader = project.ui.querySelector('.card-header p')
-                        if(cardHeader){
-                            detail.style.backgroundColor = cardHeader.style.backgroundColor
-                        }
+                        detail.textContent = value[0]
+                        detail.style.backgroundColor = value[1]
+                        // const cardHeader = project.ui.querySelector('.card-header p')
+                        // if(cardHeader){
+                        //     detail.style.backgroundColor = cardHeader.style.backgroundColor
+                        // }
                         break;
                     default:
                         detail.textContent = value
@@ -88,7 +89,7 @@ export class ProjectsManager {
     editProject(projectName: string, updateData: IProject) {
         if(!projectName) { return }
         const project: Project = this.getProjectByName(projectName) as Project
-        Object.assign(project, updateData)
+        Object.assign(project, updateData)   
         project.updateUI()
         this.setDetailsPage(project)
         return 

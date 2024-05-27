@@ -26,6 +26,7 @@ export class Project {
     cost: number = 100000
     progress: number = 0.9
     id: string
+    // iconColor: HTMLElement
     
     constructor(data: IProject) {
         //Project data definition
@@ -46,18 +47,23 @@ export class Project {
         //if (this.ui) {return}
         this.ui = document.createElement("div")
         this.ui.className = "project-card"
-        this.updateUI()
+        const idx = Math.floor(Math.random() * 5)  // background-color: #ca8134; //var(--icon-char-bg-color${idx});  
+        this.ui.setAttribute("icon-color", `var(--icon-char-bg-color${idx})`)
+        this.updateUI()       
     }
     
     //update the project card UI
     updateUI() {
 
         this.ui.setAttribute("pname", this.name)
-        
-        const idx = Math.floor(Math.random() * 5)  // background-color: #ca8134; //var(--icon-char-bg-color${idx};      
+        //console.log(this.ui.querySelector('.card-header p'))
+        //const idx = Math.floor(Math.random() * 5)  // background-color: #ca8134; //var(--icon-char-bg-color${idx});
+        //${this.iconColor}
+        // const iconColor = this.ui.getAttribute("icon-color")      
         this.ui.innerHTML = `
         <div class="card-header">
-            <p style="background-color: var(--icon-char-bg-color${idx}); padding: 5px; border-radius: 8px; aspect-ratio: 1;
+            <p style="background-color: ${this.ui.getAttribute("icon-color")};
+                    padding: 5px; border-radius: 8px; aspect-ratio: 1;
                     text-transform: uppercase; text-align: center; width: 36px;
                     display: flex; flex-direction: column; justify-content: center;"  >
                 ${this.name.slice(0,2)}</p>
