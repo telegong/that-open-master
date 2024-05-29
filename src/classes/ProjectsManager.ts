@@ -11,13 +11,7 @@ export class ProjectsManager {
     }
 
     newProject(data: IProject) {
-        const projectNames = this.list.map((project) => {
-            return project.name
-        })
-        const nameInUse = projectNames.includes(data.name)
-        if (nameInUse) {
-            throw new Error(`A project with the name "${data.name}" already exists`)
-        }
+        this.validProjectInput(data)
         const project = new Project(data)
         project.ui.addEventListener("click", () => {
             const projectsPage = document.getElementById("projects-page")
@@ -30,6 +24,19 @@ export class ProjectsManager {
         this.ui.append(project.ui)
         this.list.push(project)
         return project
+    }
+
+    private validProjectInput(data: IProject){
+        const projectNames = this.list.map((project) => {
+            return project.name
+        })
+        const nameInUse = projectNames.includes(data.name)
+        if (nameInUse) {
+            throw new Error(`A project with the name "${data.name}" already exists`)
+        }
+        if (data.name.length < 5) {
+            throw new Error(`project name have to longer than 5 charactor`)
+        }
     }
 
     private setDetailsPage(project: Project){
@@ -88,11 +95,12 @@ export class ProjectsManager {
 
     editProject(projectName: string, updateData: IProject) {
         if(!projectName) { return }
+        if(projectName != updateData.name) {this.validProjectInput(updateData)}
         const project: Project = this.getProjectByName(projectName) as Project
         Object.assign(project, updateData)   
         project.updateUI()
         this.setDetailsPage(project)
-        return 
+        return project
     }
 
     deleteProject(id: string) {

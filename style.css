@@ -314,7 +314,8 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* Error Message Dialog Style */
-#error-message-modal {
+#error-message-modal,
+#edit-error-message-modal {
     background-color: var(--background-100);
     width: 450px;
     padding: 25px 15px 10px;
@@ -322,16 +323,19 @@ input:focus, textarea:focus, select:focus {
     outline: 3px solid #ca8134;
 }
 
-#error-message-modal h2 {
+#error-message-modal h2,
+#edit-error-message-modal h2 {
     color: #ca8134;
     border-bottom: 2px solid var(--background);
 }
-#error-message-modal .material-icons-round {
+#error-message-modal .material-icons-round,
+#edit-error-message-modal .material-icons-round  {
     color: #ca8134;
     font-size: 46px;
 }
 
-#error-message-modal button {
+#error-message-modal button, 
+#edit-error-message-modal button {
     background-color: #ca8134;
 }
 
@@ -340,6 +344,7 @@ input:focus, textarea:focus, select:focus {
     /* background-color: var(--background-100); */
 }
 
-#error-message {
+#error-message, 
+#edit-error-message {
     color: white;
 }

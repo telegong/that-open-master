@@ -31,8 +31,6 @@ if (newProjectBtn) {
     console.warn("New projects button was not found")
 }
 
-
-
 function navPageSwitcher (id : string) {
     const pages = document.querySelectorAll('.page')
     for (const page of pages) {
@@ -144,14 +142,14 @@ if (editProjectBtn) {
             editProjectForm.addEventListener("submit", (e) => {
                 e.preventDefault()
                 const formData = new FormData(editProjectForm) 
+                const updateData = {
+                    name : formData.get("name") as string,
+                    description : formData.get("description") as string,
+                    userRole : formData.get("userRole") as UserRole,
+                    status : formData.get('status') as ProjectStatus,
+                    finishDate : new Date(formData.get('finishDate') as string)
+                }
                 try {
-                    const updateData = {
-                        name : formData.get("name") as string,
-                        description : formData.get("description") as string,
-                        userRole : formData.get("userRole") as UserRole,
-                        status : formData.get('status') as ProjectStatus,
-                        finishDate : new Date(formData.get('finishDate') as string)
-                    }
 
                     projectsManager.editProject(projectName, updateData)
                     //editProjectForm.reset() //index.html 폼 데이터 상태로 프로젝트 값이 없어진다. Error발생 원인
@@ -168,7 +166,7 @@ if (editProjectBtn) {
                 }
             })    
 
-            const errorMessagCheckBTN = document.getElementById("error-message-check-button") as HTMLButtonElement
+            const errorMessagCheckBTN = document.getElementById("edit-error-message-check-button") as HTMLButtonElement
             errorMessagCheckBTN.addEventListener("click",()=>{
                 toggleModal("edit-error-message-modal","hide")
             })
