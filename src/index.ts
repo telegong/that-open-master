@@ -24,6 +24,7 @@ const projectsManager = new ProjectsManager(projectsListUI)
 const newProjectBtn = document.getElementById("new-project-btn")
 if (newProjectBtn) {
     newProjectBtn.addEventListener("click",()=>{
+        document.getElementsByName('finishDate')[0].valueAsDate = new Date(projectsManager.y4m2d2(Date()))
         toggleModal("new-project-modal","show")
         projectsListUI = projectsManager.ui
     } )
@@ -60,6 +61,7 @@ if (usersListPageBtn) {
 const projectForm = document.getElementById("new-project-form")
 
 if (projectForm && projectForm instanceof HTMLFormElement) {
+    // document.getElementsByName('finishDate')[0].valueAsDate = new Date()
     projectForm.addEventListener("submit", (e) => {
         e.preventDefault()
         const formData = new FormData(projectForm) 

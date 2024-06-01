@@ -36,7 +36,7 @@ export class ProjectsManager {
         }
         if (data.name.length < 5) {
             throw new Error(`project name have to longer than 5 charactor`)
-        }
+        }        
     }
 
     private setDetailsPage(project: Project){
@@ -164,7 +164,14 @@ export class ProjectsManager {
         input.click()
     }
     y4m2d2(value: any){
-        const date = new Date(value)
+        let date
+        if (typeof value === 'string'){
+            date =new Date(value)
+        }else if(value instanceof Date) {
+            date = value
+        }else {
+            throw new Error('Invalid Date string or Date instance')
+        }
         return `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2,"0")}-${date.getDate().toString().padStart(2,"0")}`
     }
 }
