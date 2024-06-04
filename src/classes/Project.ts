@@ -10,6 +10,27 @@ export interface IProject {
     status: ProjectStatus
     finishDate: Date
 }
+export interface ITodo {
+    message: string
+    msgDate: Date
+    status: boolean
+}
+
+export class Todo {
+    message: string
+    msgDate: Date
+    status: boolean
+    constructor(todo: ITodo){
+        for (const key in todo) {
+            this[key] = todo[key];
+        }
+    }
+}
+const defaultTodo: ITodo = {
+    message: "Make anything here as you want, even something longer.",
+    msgDate: new Date(),
+    status: false
+}
 
 export class Project {
     //To Satisfy IProject
@@ -27,6 +48,7 @@ export class Project {
     progress: number = 0.9
     id: string
     // iconColor: HTMLElement
+    todoList: ITodo[] =[defaultTodo]
     
     constructor(data: IProject) {
         //Project data definition
@@ -57,10 +79,6 @@ export class Project {
     updateUI() {
 
         this.ui.setAttribute("pname", this.name)
-        //console.log(this.ui.querySelector('.card-header p'))
-        //const idx = Math.floor(Math.random() * 5)  // background-color: #ca8134; //var(--icon-char-bg-color${idx});
-        //${this.iconColor}
-        // const iconColor = this.ui.getAttribute("icon-color")      
         this.ui.innerHTML = `
         <div class="card-header">
             <p style="background-color: ${this.ui.getAttribute("icon-color")};

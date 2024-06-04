@@ -44,7 +44,8 @@ export class ProjectsManager {
         if (!detailsPage) { return }
         const details = {
             name: project.name,
-            icon_char: [project.name.slice(0,2),project.ui.getAttribute("icon-color")], //project.iconColor],//[`${project.name.slice(0,2)}`,`${cardHeader.style.backgroundColor}`],
+            icon_char: [project.name.slice(0,2),
+                        project.ui.getAttribute("icon-color")],
             description: project.description,
             name_s: project.name,
             description_s: project.description,
@@ -72,10 +73,6 @@ export class ProjectsManager {
                     case "icon_char":
                         detail.textContent = value[0]
                         detail.style.backgroundColor = value[1]
-                        // const cardHeader = project.ui.querySelector('.card-header p')
-                        // if(cardHeader){
-                        //     detail.style.backgroundColor = cardHeader.style.backgroundColor
-                        // }
                         break;
                     default:
                         detail.textContent = value
@@ -83,6 +80,39 @@ export class ProjectsManager {
                 }
             }
         }  
+        // set To-Do list
+        let todoList = document.getElementById('todo-list')
+        if (!todoList) {return}
+        let ui: HTMLElement = document.createElement('div')
+        const todo = project.todoList[0]
+        // project.todoList.forEach( todo => {
+        //     const todoui
+        //     const todoUi
+        const datestr = todo.msgDate.toDateString().split(" ")
+        const msgdate = datestr[0] + ", " + datestr[2] + " " + datestr[1]
+        todoList.innerHTML = `<div class="todo-item" >
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; column-gap: 15px; align-items: center;">
+                    <span class="material-icons-round" style="padding: 10px; background-color: #686868; border-radius: 10px;">construction</span>
+                    <p>${todo.message}</p>
+                </div>
+                <p style="text-wrap: nowrap; margin-left: 10px;">
+                ${msgdate}</p>
+            </div>
+        </div>`
+        //     ui.append(todoUI)
+        // })
+        // todoList = ui
+        // todoList.innerHTML=`<div class="todo-item" >
+        //     <div style="display: flex; justify-content: space-between; align-items: center;">
+        //         <div style="display: flex; column-gap: 15px; align-items: center;">
+        //             <span class="material-icons-round" style="padding: 10px; background-color: #686868; border-radius: 10px;">construction</span>
+        //             <p>Make anything here as you want, even something longer.</p>
+        //         </div>
+        //         <p style="text-wrap: nowrap; margin-left: 10px;">Fri, 20 sep</p>
+        //     </div>
+        // </div>`
+
     }
 
     getProject(id: string) {
@@ -126,6 +156,11 @@ export class ProjectsManager {
         return project
     }
 
+    newTodo(todoMessage: string) {
+        if(todoMessage === ""){return}
+        console.log("input new todo", todoMessage)
+        return
+    }
 
     exportToJSON(fileName: string = "projects") {
         const json = JSON.stringify(this.list, null, 2)
@@ -163,15 +198,25 @@ export class ProjectsManager {
         })
         input.click()
     }
+
     y4m2d2(value: any){
-        let date
-        if (typeof value === 'string'){
-            date =new Date(value)
-        }else if(value instanceof Date) {
-            date = value
-        }else {
-            throw new Error('Invalid Date string or Date instance')
-        }
-        return `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2,"0")}-${date.getDate().toString().padStart(2,"0")}`
+        // let date
+        // if (typeof value === 'string'){
+        //     date =new Date(value)
+        // }else if(value instanceof Date) {
+        //     date = value
+        // }else {
+        //     throw new Error('Invalid Date string or Date instance')
+        // }
+        // date = value instanceof Date ? value : typeof value === 'string' ? new Date(value) : 'Invalid Date string or Date instance'
+        let date = value instanceof Date ? value : new Date(value ?? 'Invalid Date string or Date instance');
+
+        return `${
+            date.getFullYear()
+        }-${
+            (date.getMonth()+1).toString().padStart(2,"0")
+        }-${
+            date.getDate().toString().padStart(2,"0")
+        }`
     }
 }

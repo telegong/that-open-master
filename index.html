@@ -171,6 +171,21 @@
                     <button id="edit-error-message-check-button">Check</button>
                 </div>
             </dialog>
+            <dialog id="new-todo-modal">
+                <form id="new-todo-form" >                    
+                    <h2>New To-Do</h2>
+                    <div class="input-list">
+                        <div class="form-field-container">
+                            <label><span class="material-icons-round">construction </span>To-Do Message</label>
+                            <textarea name="todo-message" cols="30" rows="5" placeholder="Make anything here as you want, even something longer."></textarea>
+                        </div>
+                        <div style="display: flex; justify-content: flex-end; margin: 10px 0px 10px auto; column-gap: 10px;">
+                            <!-- <button id="new-todo-input-canel" type="button" style="background-color: transparent;">Cancel</button> -->
+                            <button type="submit" style="background-color: rgb(18, 145, 18);">Accept</button>
+                        </div>
+                    </div>
+                </form>
+            </dialog>
             <header>
                 <div>
                     <h2 data-project-info="name">Hospital Center</h2>
@@ -224,11 +239,11 @@
                                     <span class="material-icons-round">search</span>
                                     <input type="text" placeholder="Search To-Do's by name" style="width: 100%;">
                                 </div>
-                                <span class="material-icons-round">add</span>
+                                <button id="new-todo-btn"> <span class="material-icons-round">add</span></button>
                             </div>
                         </div>
-                        <div style="display: flex; flex-direction: column; padding: 10px 30px; row-gap: 20px;">
-                            <div class="todo-item" >
+                        <div id="todo-list" style="display: flex; flex-direction: column; padding: 10px 30px; row-gap: 20px;">
+                            <!-- <div class="todo-item" >
                                 <div style="display: flex; justify-content: space-between; align-items: center;">
                                     <div style="display: flex; column-gap: 15px; align-items: center;">
                                         <span class="material-icons-round" style="padding: 10px; background-color: #686868; border-radius: 10px;">construction</span>
@@ -237,6 +252,15 @@
                                     <p style="text-wrap: nowrap; margin-left: 10px;">Fri, 20 sep</p>
                                 </div>
                             </div>
+                            <div class="todo-item" >
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div style="display: flex; column-gap: 15px; align-items: center;">
+                                        <span class="material-icons-round" style="padding: 10px; background-color: #686868; border-radius: 10px;">construction</span>
+                                        <p>Make anything here as you want, even something longer.</p>
+                                    </div>
+                                    <p style="text-wrap: nowrap; margin-left: 10px;">Fri, 20 sep</p>
+                                </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

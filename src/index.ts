@@ -61,7 +61,6 @@ if (usersListPageBtn) {
 const projectForm = document.getElementById("new-project-form")
 
 if (projectForm && projectForm instanceof HTMLFormElement) {
-    // document.getElementsByName('finishDate')[0].valueAsDate = new Date()
     projectForm.addEventListener("submit", (e) => {
         e.preventDefault()
         const formData = new FormData(projectForm) 
@@ -176,8 +175,7 @@ if (editProjectBtn) {
             const editProjectInputCancelBTN = document.getElementById("edit-project-input-canel") as HTMLButtonElement
             editProjectInputCancelBTN.addEventListener("click", () => {
                 editProjectForm.reset()
-                toggleModal("edit-project-modal","hide")
-                
+                toggleModal("edit-project-modal","hide")                
             })
 
         } else {
@@ -189,16 +187,40 @@ if (editProjectBtn) {
     console.warn("Edit projects button was not found")
 }
 
+const newToDoBtn = document.getElementById("new-todo-btn")
+if (newToDoBtn) {
+    newToDoBtn.addEventListener("click", () => {
+        // const todo: string = prompt("Add new To-Do") as string
+        toggleModal("new-todo-modal","show")
+        const newTodoForm = document.getElementById("new-todo-form") 
+        if (newTodoForm instanceof HTMLFormElement){
+            newTodoForm.addEventListener("submit", (e) => {
+                e.preventDefault()
+                const formData = new FormData(newTodoForm) 
+                const todoMessage = formData.get('todo-message') as string
+                projectsManager.newTodo(todoMessage)
+                newTodoForm.reset()
+                toggleModal("new-todo-modal","hide")
+            })
 
- // defaultProjectCreate
- if(projectsManager.list.length == 0){
+        } else {
+            console.warn("New ToDo form was not found")
+        }
+    })
+} else {     
+    console.warn("New Todo button was not found")
+}
+
+
+
+// defaultProjectCreate
+if(projectsManager.list.length == 0){
     const defaultProjectData: IProject = {
         name : "Default Project Name", 
         description : "Housing Complex in Seoul",
         userRole : "Architect",
         status : "Active",
-        finishDate : new Date("2022-05-01"),
-        
+        finishDate : new Date("2022-05-01"),        
     }
     projectsManager.newProject(defaultProjectData)
 }
