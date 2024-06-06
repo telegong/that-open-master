@@ -102,7 +102,7 @@ export class ProjectsManager {
         todoListUI.innerHTML = ""
         console.log(`updateTodoListUI : 
             project.name : ${project.name}, 
-            project : ${project}`)
+            project : `,project)
         // const todo = project.todoList[0]
         project.todoList.forEach( todo => {
             const datestr = todo.msgDate.toDateString().split(" ")

@@ -204,14 +204,27 @@ if (newToDoBtn) {
             newTodoForm.addEventListener("submit", (e) => {
                 e.preventDefault()
                 const formData = new FormData(newTodoForm) 
-                const todoMessage = formData.get('todo-message') as string
+                let todoMessage = ""
+                todoMessage = formData.get('todo-message') as string
                 console.log(`newToDoBtn newToDoForm submit :
                     todoprojectName : ${todoprojectName},
                     todoMessage : ${todoMessage}`)
-                console.log("projectsmanager.newTodo() return : ",projectsManager.newTodo(todoprojectName, todoMessage))
-                newTodoForm.reset()
-                toggleModal("new-todo-modal","hide")
-                // projectName = "" 
+  
+                // console.log("projectsmanager.newTodo() return : ",)
+                // newTodoForm.reset()//reset하면 프로젝트별로 작성되지 않고 중복됨
+
+                try {
+                    projectsManager.newTodo(todoprojectName, todoMessage)  
+                    toggleModal("new-todo-modal","hide")
+                } catch(err) {
+                    console.log("newTodoForm submit Error : ",err.message)
+                    const errorMessage = document.getElementById("edit-error-message") as HTMLElement
+                    errorMessage.textContent=`Error: ${err.message}`
+                    toggleModal("edit-error-message-modal", "show")
+                } finally {
+                    todoprojectName = "" 
+                    todoMessage = ""
+                }
                 // return
             })
 
