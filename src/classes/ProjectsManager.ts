@@ -1,4 +1,4 @@
-import { IProject, Project } from "./Project"
+import { IProject, Project, ITodo, Todo } from "./Project"
 
 
 export class ProjectsManager {
@@ -13,6 +13,14 @@ export class ProjectsManager {
     newProject(data: IProject) {
         this.validProjectInput(data)
         const project = new Project(data)
+        if(project.todoList.length === 0) {
+            project.todoList.push({//new Todo({
+                message:"Make anything here as you want, even something longer.",
+                msgDate: new Date(),
+                status: false
+            })//)  
+            console.log("newProjcet default todo: ", project.todoList)                      
+        }
         project.ui.addEventListener("click", () => {
             const projectsPage = document.getElementById("projects-page")
             const detailsPage = document.getElementById("project-details")
@@ -20,6 +28,7 @@ export class ProjectsManager {
             projectsPage.style.display = "none"
             detailsPage.style.display = "flex"
             this.setDetailsPage(project)
+            this.updateTodoListUI(project)
         })
         this.ui.append(project.ui)
         this.list.push(project)
@@ -80,38 +89,37 @@ export class ProjectsManager {
                 }
             }
         }  
+        console.log("setDetailsPage: ", project.name)
+        // this.updateTodoListUI(project)
+    }
+
+
+    private updateTodoListUI(project: Project){
         // set To-Do list
-        let todoList = document.getElementById('todo-list')
-        if (!todoList) {return}
-        let ui: HTMLElement = document.createElement('div')
-        const todo = project.todoList[0]
-        // project.todoList.forEach( todo => {
-        //     const todoui
-        //     const todoUi
-        const datestr = todo.msgDate.toDateString().split(" ")
-        const msgdate = datestr[0] + ", " + datestr[2] + " " + datestr[1]
-        todoList.innerHTML = `<div class="todo-item" >
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div style="display: flex; column-gap: 15px; align-items: center;">
-                    <span class="material-icons-round" style="padding: 10px; background-color: #686868; border-radius: 10px;">construction</span>
-                    <p>${todo.message}</p>
+        let todoListUI = document.createElement("div")
+        todoListUI = document.getElementById('todo-list') as HTMLDivElement
+        if (!todoListUI) {return}
+        todoListUI.innerHTML = ""
+        console.log(`updateTodoListUI : 
+            project.name : ${project.name}, 
+            project : ${project}`)
+        // const todo = project.todoList[0]
+        project.todoList.forEach( todo => {
+            const datestr = todo.msgDate.toDateString().split(" ")
+            const msgdate = `${datestr[0]}, ${datestr[2]} ${datestr[1]}`
+            const todoitem =`<div class="todo-item" >
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; column-gap: 15px; align-items: center;">
+                        <span class="material-icons-round" style="padding: 10px; background-color: #686868; border-radius: 10px;">construction</span>
+                        <p>${todo.message}</p>
+                    </div>
+                    <p style="text-wrap: nowrap; margin-left: 10px;">
+                    ${msgdate}</p>
                 </div>
-                <p style="text-wrap: nowrap; margin-left: 10px;">
-                ${msgdate}</p>
-            </div>
-        </div>`
-        //     ui.append(todoUI)
-        // })
-        // todoList = ui
-        // todoList.innerHTML=`<div class="todo-item" >
-        //     <div style="display: flex; justify-content: space-between; align-items: center;">
-        //         <div style="display: flex; column-gap: 15px; align-items: center;">
-        //             <span class="material-icons-round" style="padding: 10px; background-color: #686868; border-radius: 10px;">construction</span>
-        //             <p>Make anything here as you want, even something longer.</p>
-        //         </div>
-        //         <p style="text-wrap: nowrap; margin-left: 10px;">Fri, 20 sep</p>
-        //     </div>
-        // </div>`
+            </div>`
+            todoListUI.innerHTML += todoitem
+        })
+        // todoListUI.remove()
 
     }
 
@@ -156,10 +164,21 @@ export class ProjectsManager {
         return project
     }
 
-    newTodo(todoMessage: string) {
-        if(todoMessage === ""){return}
-        console.log("input new todo", todoMessage)
-        return
+    newTodo(projectName: string, todoMessage: string) {
+        if(todoMessage === ""){return}  
+        if(!projectName) { return }
+        console.log("ProjectsManager.newTodo() : projectName = ",projectName)
+        const project: Project = this.getProjectByName(projectName) as Project
+        if(!project) {return}
+        // const todo = new Todo({message:todoMessage, msgDate: new Date(), status:false})
+        
+        project.todoList.push({message:todoMessage, msgDate: new Date(), status:false})//todo)
+        console.log("ProjectsManager.newTodo() \n project.todoList.push : projectName = ",project.name,project.todoList)
+        this.updateTodoListUI(project)
+        // console.log(project.name,project.todoList)
+        // projectName = ""
+        // console.log("input new todo", todoMessage)
+        return project
     }
 
     exportToJSON(fileName: string = "projects") {

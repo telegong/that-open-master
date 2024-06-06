@@ -48,7 +48,7 @@ export class Project {
     progress: number = 0.9
     id: string
     // iconColor: HTMLElement
-    todoList: ITodo[] =[defaultTodo]
+    todoList: Todo[] =[]//defaultTodo]
     
     constructor(data: IProject) {
         //Project data definition

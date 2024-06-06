@@ -57,7 +57,7 @@ if (usersListPageBtn) {
     console.warn("Users List button was not found")
 }
 
-//====Get created values from form 생성 프로젝트 양식 값 가져오기=====
+//====Get created values from form:생성 프로젝트 양식 값 가져오기=====
 const projectForm = document.getElementById("new-project-form")
 
 if (projectForm && projectForm instanceof HTMLFormElement) {
@@ -191,6 +191,13 @@ const newToDoBtn = document.getElementById("new-todo-btn")
 if (newToDoBtn) {
     newToDoBtn.addEventListener("click", () => {
         // const todo: string = prompt("Add new To-Do") as string
+        const projectDetails = document.getElementById("project-details")
+        if (!projectDetails) return
+        let todoprojectName: string = ""
+        todoprojectName = projectDetails.querySelector("[data-project-info='name']")?.textContent as string
+        if (!todoprojectName) return
+        console.log(`newToDoBtn clicked: 
+            todoprojectName: ${todoprojectName}`)
         toggleModal("new-todo-modal","show")
         const newTodoForm = document.getElementById("new-todo-form") 
         if (newTodoForm instanceof HTMLFormElement){
@@ -198,9 +205,14 @@ if (newToDoBtn) {
                 e.preventDefault()
                 const formData = new FormData(newTodoForm) 
                 const todoMessage = formData.get('todo-message') as string
-                projectsManager.newTodo(todoMessage)
+                console.log(`newToDoBtn newToDoForm submit :
+                    todoprojectName : ${todoprojectName},
+                    todoMessage : ${todoMessage}`)
+                console.log("projectsmanager.newTodo() return : ",projectsManager.newTodo(todoprojectName, todoMessage))
                 newTodoForm.reset()
                 toggleModal("new-todo-modal","hide")
+                // projectName = "" 
+                // return
             })
 
         } else {
