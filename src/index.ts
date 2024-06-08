@@ -188,132 +188,122 @@ if (editProjectBtn) {
 }
 
 const newToDoBtn = document.getElementById("new-todo-btn")
-// Alt newToDoBtn
-// if (newToDoBtn) {
-//     newToDoBtn.addEventListener("click", () => {
-//         // const todo: string = prompt("Add new To-Do") as string
-
-//         toggleModal("new-todo-modal","show")
-//     })    
-// } else {     
-//     console.warn("New Todo button was not found")
-// }
-
-// // const newToDoBtn = document.getElementById("new-todo-btn")
-// const newTodoForm = document.getElementById("new-todo-form") as HTMLFormElement
-// const projectDetails = document.getElementById("project-details") as HTMLElement
-// // const formData = new FormData(newTodoForm)
-// if (newTodoForm instanceof HTMLFormElement && projectDetails ){
-//     let todoprojectName = projectDetails.querySelector("[data-project-info='name']")?.textContent as string
-//     if(todoprojectName) {
-//         console.log(`newToDoBtn clicked: 
-//         todoprojectName: ${todoprojectName}`)
-//         let todoMessage = ""
-//         newTodoForm.addEventListener("submit", (e) => {
-//             e.preventDefault()
-//             const formData = new FormData(newTodoForm) 
-//             todoMessage = formData.get('todo-message') as string
-//             if(todoMessage === "") {
-//                 newTodoForm.reset()
-//                 toggleModal("new-todo-modal","hide")    
-//                 return
-//             }
-//             console.log(`newToDoBtn newToDoForm submit :
-//                 todoprojectName : ${todoprojectName},
-//                 todoMessage : ${todoMessage}`)
-    
-//             // console.log("projectsmanager.newTodo() return : ",)
-//             // newTodoForm.reset()//reset하면 프로젝트별로 작성되지 않고 중복됨
-    
-//             try {
-//                 projectsManager.newTodo(todoprojectName, todoMessage)  
-//                 toggleModal("new-todo-modal","hide")
-//             } catch(err) {
-//                 console.log("newTodoForm submit Error : ",err.message)
-//                 const errorMessage = document.getElementById("error-message") as HTMLElement
-//                 errorMessage.textContent=`Error: ${err.message}`
-//                 toggleModal("error-message-modal", "show")
-//             } finally {
-//                 //인수로 넘어온 값들을 초기화? 해준다
-//                 todoprojectName = "" 
-//                 todoMessage = ""
-//             }
-//             // return
-//         })
-
-//     }else {
-//         console.log("todoprojectName was not found")
-//     }
-
-// } else {
-//     console.warn("New ToDo form was not found")
-// }
-
-
-
 if (newToDoBtn) {
     newToDoBtn.addEventListener("click", () => {
         // const todo: string = prompt("Add new To-Do") as string
-        const projectDetails = document.getElementById("project-details")
-        if (!projectDetails) return
-        // let todoprojectName: string = ""
-        let todoprojectName = projectDetails.querySelector("[data-project-info='name']")?.textContent as string
-        if (!todoprojectName) return
-        // console.log(`newToDoBtn clicked: 
-        //     todoprojectName: ${todoprojectName}`)
-        // let todoMessage = ""
         toggleModal("new-todo-modal","show")
-        const newTodoForm = document.getElementById("new-todo-form") as HTMLFormElement
-        if (newTodoForm instanceof HTMLFormElement){
-            newTodoForm.addEventListener("submit", (e) => {
-                e.preventDefault()
-                const formData = new FormData(newTodoForm) 
-                let todoMessage = formData.get('todo-message') as string
-                // if(todoMessage === "") {
-                //     newTodoForm.reset()
-                //     toggleModal("new-todo-modal","hide")  
-                //     todoprojectName = ""   
-                //     return
-                // }
-                // console.log(`newToDoBtn newToDoForm submit :
-                //     todoprojectName : ${todoprojectName},
-                //     todoMessage : ${todoMessage}`)
-  
-                // console.log("projectsmanager.newTodo() return : ",)
-                // newTodoForm.reset()//reset하면 프로젝트별로 작성되지 않고 중복됨
-
-                try {
-                    if(todoMessage && projectsManager.newTodo(todoprojectName, todoMessage)) {
-                        newTodoForm.reset()
-                    }
-                    toggleModal("new-todo-modal","hide")
-                    // throw Error('raise an error');
-                    
-                } catch(err) {
-                    console.log("newTodoForm submit Error : ",err.message)
-                    const errorMessage = document.getElementById("edit-error-message") as HTMLElement
-                    errorMessage.textContent=`Error: ${err.message}`
-                    toggleModal("edit-error-message-modal", "show")
-                } finally {
-                    //인수로 넘어온 값들을 초기화? 해준다
-                    todoprojectName = "" 
-                    todoMessage = ""
-                }
-                // return
-            })
-
-            const errorMessagCheckBTN = document.getElementById("edit-error-message-check-button") as HTMLButtonElement
-            errorMessagCheckBTN.addEventListener("click",()=>{
-                toggleModal("edit-error-message-modal","hide")
-            })
-
-        } else {
-            console.warn("New ToDo form was not found")
-        }
     })
+
 } else {     
-    console.warn("New Todo button was not found")
+        console.warn("New Todo button was not found")
 }
+    
+
+const newTodoForm = document.getElementById("new-todo-form") as HTMLFormElement
+if (newTodoForm instanceof HTMLFormElement) {
+    newTodoForm.addEventListener("submit", (e) => {
+        e.preventDefault()
+
+        const projectDetails = document.getElementById("project-details") as HTMLElement
+        let todoprojectName = projectDetails.querySelector("[data-project-info='name']")?.textContent as string
+        if (!(projectDetails && todoprojectName)) return
+
+        const formData = new FormData(newTodoForm) 
+        let todoMessage = formData.get('todo-message') as string
+
+        try {
+            if(todoMessage && projectsManager.newTodo(todoprojectName, todoMessage)) {
+                newTodoForm.reset()
+            }
+            toggleModal("new-todo-modal","hide")
+            // throw Error('raise an error');
+            
+        } catch(err) {
+            // console.log("newTodoForm submit Error : ",err.message)
+            const errorMessage = document.getElementById("edit-error-message") as HTMLElement
+            errorMessage.textContent=`Error: ${err.message}`
+            toggleModal("edit-error-message-modal", "show")
+        } finally {
+            //인수로 넘어온 값들을 초기화? 해준다
+            todoprojectName = "" 
+            todoMessage = ""
+        }
+        // return
+    })
+
+    const errorMessagCheckBTN = document.getElementById("edit-error-message-check-button") as HTMLButtonElement
+    errorMessagCheckBTN.addEventListener("click",()=>{
+        toggleModal("edit-error-message-modal","hide")
+    })
+
+} else {
+    console.warn("New ToDo form was not found")
+}
+
+// const newToDoBtn = document.getElementById("new-todo-btn")
+// if (newToDoBtn) {
+//     newToDoBtn.addEventListener("click", () => {
+//         // const todo: string = prompt("Add new To-Do") as string
+//         const projectDetails = document.getElementById("project-details")
+//         if (!projectDetails) return
+//         // let todoprojectName: string = ""
+//         let todoprojectName = projectDetails.querySelector("[data-project-info='name']")?.textContent as string
+//         if (!todoprojectName) return
+//         // console.log(`newToDoBtn clicked: 
+//         //     todoprojectName: ${todoprojectName}`)
+//         // let todoMessage = ""
+//         toggleModal("new-todo-modal","show")
+//         const newTodoForm = document.getElementById("new-todo-form") as HTMLFormElement
+//         if (newTodoForm instanceof HTMLFormElement){
+//             newTodoForm.addEventListener("submit", (e) => {
+//                 e.preventDefault()
+//                 const formData = new FormData(newTodoForm) 
+//                 let todoMessage = formData.get('todo-message') as string
+//                 // if(todoMessage === "") {
+//                 //     newTodoForm.reset()
+//                 //     toggleModal("new-todo-modal","hide")  
+//                 //     todoprojectName = ""   
+//                 //     return
+//                 // }
+//                 // console.log(`newToDoBtn newToDoForm submit :
+//                 //     todoprojectName : ${todoprojectName},
+//                 //     todoMessage : ${todoMessage}`)
+  
+//                 // console.log("projectsmanager.newTodo() return : ",)
+//                 // newTodoForm.reset()//reset하면 프로젝트별로 작성되지 않고 중복됨
+
+//                 try {
+//                     if(todoMessage && projectsManager.newTodo(todoprojectName, todoMessage)) {
+//                         newTodoForm.reset()
+//                     }
+//                     toggleModal("new-todo-modal","hide")
+//                     // throw Error('raise an error');
+                    
+//                 } catch(err) {
+//                     console.log("newTodoForm submit Error : ",err.message)
+//                     const errorMessage = document.getElementById("edit-error-message") as HTMLElement
+//                     errorMessage.textContent=`Error: ${err.message}`
+//                     toggleModal("edit-error-message-modal", "show")
+//                 } finally {
+//                     //인수로 넘어온 값들을 초기화? 해준다
+//                     todoprojectName = "" 
+//                     todoMessage = ""
+//                 }
+//                 // return
+//             })
+
+//             const errorMessagCheckBTN = document.getElementById("edit-error-message-check-button") as HTMLButtonElement
+//             errorMessagCheckBTN.addEventListener("click",()=>{
+//                 toggleModal("edit-error-message-modal","hide")
+//             })
+
+//         } else {
+//             console.warn("New ToDo form was not found")
+//         }
+//     })
+// } else {     
+//     console.warn("New Todo button was not found")
+// }
 
 
 
