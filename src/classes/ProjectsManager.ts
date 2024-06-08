@@ -105,7 +105,7 @@ export class ProjectsManager {
             project : `,project)
         // const todo = project.todoList[0]
         project.todoList.forEach( todo => {
-            const datestr = todo.msgDate.toDateString().split(" ")
+            const datestr =(new Date(todo.msgDate)).toDateString().split(" ")
             const msgdate = `${datestr[0]}, ${datestr[2]} ${datestr[1]}`
             const todoitem =`<div class="todo-item" >
                 <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -230,12 +230,8 @@ export class ProjectsManager {
         // date = value instanceof Date ? value : typeof value === 'string' ? new Date(value) : 'Invalid Date string or Date instance'
         let date = value instanceof Date ? value : new Date(value ?? 'Invalid Date string or Date instance');
 
-        return `${
-            date.getFullYear()
-        }-${
-            (date.getMonth()+1).toString().padStart(2,"0")
-        }-${
-            date.getDate().toString().padStart(2,"0")
-        }`
+        return `${date.getFullYear()}-${
+            (date.getMonth()+1).toString().padStart(2,"0")}-${
+            date.getDate().toString().padStart(2,"0")}`
     }
 }
