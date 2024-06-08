@@ -115,17 +115,15 @@ if(importProjectsBtn){
 const editProjectBtn = document.getElementById("edit-project-btn")
 if (editProjectBtn) {
     editProjectBtn.addEventListener("click", ()=>{
-        const projectDetails = document.getElementById("project-details")
-        if (!projectDetails) return
+        const projectDetails = document.getElementById("project-details") as HTMLElement
         let projectName = projectDetails.querySelector("[data-project-info='name']")?.textContent as string
-        if (!projectName) return
-        console.log(projectName)
+        if (!(projectDetails && projectName)) return
+        // console.log(projectName)
 
         toggleModal("edit-project-modal","show")
 
         // Edit Project in Project Details Page
-        const editProjectForm = document.getElementById("edit-project-form")
-        
+        const editProjectForm = document.getElementById("edit-project-form")        
         if (editProjectForm instanceof HTMLFormElement  ) {   
             const preDatum = {
                 name: "input[name='name']",
@@ -151,11 +149,10 @@ if (editProjectBtn) {
                     finishDate : new Date(formData.get('finishDate') as string)
                 }
                 try {
-
-                    projectsManager.editProject(projectName, updateData)
-                    //editProjectForm.reset() //index.html 폼 데이터 상태로 프로젝트 값이 없어진다. Error발생 원인
+                    if(projectsManager.editProject(projectName, updateData)) {
+                        editProjectForm.reset() //index.html 폼 데이터 상태로 프로젝트 값이 없어진다. Error발생 원인
+                    }
                     toggleModal("edit-project-modal","hide")
-
                     
                 } catch (err) {
                     const errorMessage = document.getElementById("edit-error-message") as HTMLElement
