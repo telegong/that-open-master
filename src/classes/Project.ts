@@ -60,7 +60,9 @@ export class Project {
         // this.status = data.status
         // this.userRole = data.userRole
         // this.finishDate = data.finishDate
-        this.id = uuidv4()
+        if(!this.id){
+            this.id = uuidv4()
+        }
         this.setUI()
     } 
 
@@ -88,6 +90,7 @@ export class Project {
                 ${this.name.slice(0,2)}</p>
             <div>
                 <h5>${this.name}</h5>
+                <h5>${this.id}</h5>
                 <p>${this.description}</p>
             </div>
         </div>

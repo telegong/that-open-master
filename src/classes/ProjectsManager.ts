@@ -19,7 +19,7 @@ export class ProjectsManager {
                 msgDate: new Date(),
                 status: false
             })//)  
-            console.log("newProjcet default todo: ", project.todoList)                      
+            // console.log("newProjcet default todo: ", project.todoList)                      
         }
         project.ui.addEventListener("click", () => {
             const projectsPage = document.getElementById("projects-page")
@@ -175,9 +175,6 @@ export class ProjectsManager {
         project.todoList.push({message:todoMessage, msgDate: new Date(), status:false})//todo)
         console.log("ProjectsManager.newTodo() \n project.todoList.push : projectName = ",project.name,project.todoList)
         this.updateTodoListUI(project)
-        // console.log(project.name,project.todoList)
-        // projectName = ""
-        // console.log("input new todo", todoMessage)
         return project
     }
 
@@ -200,10 +197,20 @@ export class ProjectsManager {
         reader.addEventListener("load", () => {
             const json = reader.result
             if (!json) { return }
-            const projects: IProject[] = JSON.parse(json as string)
+            const projects: Project[] = JSON.parse(json as string)
             for (const project of projects) {
                 try {
-                    this.newProject(project)
+                    console.log(`${project.name}: ${project.id}`)
+                    const projectExist = this.getProject(project.id)
+                    if(projectExist) {
+                        console.log(`projectExist.name: ${projectExist.name}`)
+                        const {ui, ...other} = project 
+                        this.editProject(projectExist.name, other)
+                        // Object.assign(projectExist,project)
+                        // projectExist.setUI()
+                    } else if(!this.getProjectByName(project.name)){
+                        this.newProject(project)                        
+                    }
                 } catch (err) {
                     console.log(err)
                 }
