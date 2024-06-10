@@ -26,7 +26,7 @@ export class Todo {
         }
     }
 }
-const defaultTodo: ITodo = {
+export const defaultTodo: ITodo = {
     message: "Make anything here as you want, even something longer.",
     msgDate: new Date(),
     status: false

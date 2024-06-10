@@ -1,4 +1,4 @@
-import { IProject, Project, ITodo, Todo } from "./Project"
+import { IProject, Project, ITodo, Todo, defaultTodo } from "./Project"
 
 
 export class ProjectsManager {
@@ -14,13 +14,13 @@ export class ProjectsManager {
         this.validProjectInput(data)
         const project = new Project(data)
         if(project.todoList.length === 0) {
-            project.todoList.push({//new Todo({
-                message:"Make anything here as you want, even something longer.",
-                msgDate: new Date(),
-                status: false
-            })//)  
-            // console.log("newProjcet default todo: ", project.todoList)                      
+            project.todoList.push(defaultTodo)
         }
+            // message:"Make anything here as you want, even something longer.",
+            // msgDate: new Date(),
+            // status: false
+        //})
+        // console.log("newProjcet default todo: ", project.todoList)                      
         project.ui.addEventListener("click", () => {
             const projectsPage = document.getElementById("projects-page")
             const detailsPage = document.getElementById("project-details")
@@ -200,16 +200,23 @@ export class ProjectsManager {
             const projects: Project[] = JSON.parse(json as string)
             for (const project of projects) {
                 try {
-                    console.log(`${project.name}: ${project.id}`)
+                    console.log(`importing... ${project.name}: ${project.id}`)
                     const projectExist = this.getProject(project.id)
                     if(projectExist) {
                         console.log(`projectExist.name: ${projectExist.name}`)
                         const {ui, ...other} = project 
                         this.editProject(projectExist.name, other)
-                        // Object.assign(projectExist,project)
-                        // projectExist.setUI()
-                    } else if(!this.getProjectByName(project.name)){
+                        // if(projectExist.name != project.name) {this.validProjectInput(project)}
+                        // Object.assign(projectExist,other)
+                        // projectExist.updateUI()
+                    }else if(!this.getProjectByName(project.name)){
                         this.newProject(project)                        
+                    }else {
+                        console.log(`"${project.name}" project exist! But it has different id,
+
+    Import Project id: ${project.id}
+    Exist Project id: ${this.getProjectByName(project.name)?.id}`
+                        )
                     }
                 } catch (err) {
                     console.log(err)
