@@ -96,8 +96,8 @@ export class ProjectsManager {
 
     private updateTodoListUI(project: Project){
         // set To-Do list
-        let todoListUI = document.createElement("div")
-        todoListUI = document.getElementById('todo-list') as HTMLDivElement
+        // let todoListUI = document.createElement("div")
+        let todoListUI = document.getElementById('todo-list') as HTMLDivElement
         if (!todoListUI) {return}
         todoListUI.innerHTML = ""
         console.log(`updateTodoListUI : 
@@ -107,7 +107,10 @@ export class ProjectsManager {
         project.todoList.forEach( todo => {
             const datestr =(new Date(todo.msgDate)).toDateString().split(" ")
             const msgdate = `${datestr[0]}, ${datestr[2]} ${datestr[1]}`
-            const todoitem =`<div class="todo-item" >
+            const todoDone = todo.status? 'style= "background-color: rgba(0, 0, 0, 0.3); color: var(--primary-200);"': ''
+            // const todoBGcolor = todo.status? "background-color: rgba(0, 0, 0, 0.3);": ''
+            // const todocolor = todo.status? 'color: var(--primary-200);' : ''
+            const todoitem =`<div class="todo-item" ${todoDone}>
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <div style="display: flex; column-gap: 15px; align-items: center;">
                         <span class="material-icons-round" style="padding: 10px; background-color: #686868; border-radius: 10px;">construction</span>
@@ -116,7 +119,7 @@ export class ProjectsManager {
                     <p style="text-wrap: nowrap; margin-left: 10px;">
                     ${msgdate}</p>
                 </div>
-            </div>`
+            </div>` 
             todoListUI.innerHTML += todoitem
         })
         // todoListUI.remove()
@@ -164,15 +167,15 @@ export class ProjectsManager {
         return project
     }
 
-    newTodo(projectName: string, todoMessage: string) {
-        if(todoMessage === ""){return}  
-        if(!projectName) { return }
+    newTodo(projectName: string, todoMessage: string, todoStatus: boolean) {
+        if(!(todoMessage && projectName)) {return}  
+        // if(!projectName) { return }
         console.log("ProjectsManager.newTodo() : projectName = ",projectName)
         const project: Project = this.getProjectByName(projectName) as Project
         if(!project) {return}
         // const todo = new Todo({message:todoMessage, msgDate: new Date(), status:false})
         
-        project.todoList.push({message:todoMessage, msgDate: new Date(), status:false})//todo)
+        project.todoList.push({message:todoMessage, msgDate: new Date(), status: todoStatus})//todo)
         console.log("ProjectsManager.newTodo() \n project.todoList.push : projectName = ",project.name,project.todoList)
         this.updateTodoListUI(project)
         return project

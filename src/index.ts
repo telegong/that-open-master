@@ -206,10 +206,11 @@ if (newTodoForm instanceof HTMLFormElement) {
         if (!(projectDetails && todoprojectName)) return
 
         const formData = new FormData(newTodoForm) 
-        let todoMessage = formData.get('todo-message') as string
+        let todoMessage = formData.get('todo-message') as string        
+        const todoStatus = formData.get('todo-status')? true : false
 
         try {
-            if(todoMessage && projectsManager.newTodo(todoprojectName, todoMessage)) {
+            if(todoMessage && projectsManager.newTodo(todoprojectName, todoMessage, todoStatus)) {
                 newTodoForm.reset()
             }
             toggleModal("new-todo-modal","hide")
