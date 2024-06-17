@@ -107,14 +107,13 @@ export class ProjectsManager {
         project.todoList.forEach( todo => {
             const datestr =(new Date(todo.msgDate)).toDateString().split(" ")
             const msgdate = `${datestr[0]}, ${datestr[2]} ${datestr[1]}`
-            const todoDone = todo.status? 'style= "background-color: rgba(0, 0, 0, 0.3); color: var(--primary-200);"': ''
-            // const todoBGcolor = todo.status? "background-color: rgba(0, 0, 0, 0.3);": ''
-            // const todocolor = todo.status? 'color: var(--primary-200);' : ''
-            const todoitem =`<div class="todo-item" ${todoDone}>
+            const todoDoneDimm = todo.status? 'style= "opacity: 50%;"': ''
+            const todoDone = todo.status? 'done': 'construction'
+            const todoitem =`<div class="todo-item" ${todoDoneDimm}>
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <div style="display: flex; column-gap: 15px; align-items: center;">
-                        <span class="material-icons-round" style="padding: 10px; background-color: #686868; border-radius: 10px;">construction</span>
-                        <p>${todo.message}</p>
+                        <span name='todostatus' class="material-icons-round" style="padding: 10px; background-color: #686868; border-radius: 10px;">${todoDone}</span>
+                        <p name='todomessage'>${todo.message}</p>
                     </div>
                     <p style="text-wrap: nowrap; margin-left: 10px;">
                     ${msgdate}</p>
@@ -179,6 +178,21 @@ export class ProjectsManager {
         console.log("ProjectsManager.newTodo() \n project.todoList.push : projectName = ",project.name,project.todoList)
         this.updateTodoListUI(project)
         return project
+    }
+
+    editTodo(projectName: string, todoMessage: string, todoStatus: boolean, todoitemindex: number) {
+        if(!(todoMessage && projectName)) {return}  
+        // console.log("ProjectsManager.editTodo() : projectName = ",projectName)
+        const project: Project = this.getProjectByName(projectName) as Project
+        // console.log("ProjectsManager.editTodo() : project = ",project)
+        if(!project) {return}
+        if(!project.todoList[todoitemindex]) {return} // Re~ally Important!!!
+        project.todoList[todoitemindex] = {message:todoMessage, msgDate: new Date(), status: todoStatus}
+        
+        // Object.assign(project.todoList[todoitemindex], {message:todoMessage, msgDate: new Date(), status: todoStatus})
+        console.log("ProjectsManager.editTodo() \n project.todoList.push : projectName = ",project.name,project.todoList)
+        this.updateTodoListUI(project)
+        return true
     }
 
     exportToJSON(fileName: string = "projects") {

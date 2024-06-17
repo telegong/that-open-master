@@ -188,12 +188,35 @@
                             </div>
                         </div>
                         <div style="display: flex; justify-content: flex-end; margin: 10px 0px 10px auto; column-gap: 10px;">
-                            <!-- <button id="new-todo-input-canel" type="button" style="background-color: transparent;">Cancel</button> -->
-                            <button type="submit" style="background-color: rgb(18, 145, 18);">Accept</button>
+                            <button type="submit" style="background-color: rgb(18, 145, 18);">Enter/Esc</button>
                         </div>
                     </div>
                 </form>
             </dialog>
+
+            <dialog id="edit-todo-modal">
+                <form id="edit-todo-form" method="dialog">                    
+                    <h2>Edit To-Do</h2>
+                    <div class="input-list">
+                        <div class="form-field-container">
+                            <label><span class="material-icons-round">construction </span>To-Do Message</label>
+                            <textarea name="edit-todo-message" cols="30" rows="5" 
+                                placeholder="Make anything here as you want, even something longer."></textarea>
+                        </div>
+                        <div class="form-field-container">
+                            <label><span class="material-icons-round">done_outline</span>To-Do Status</label>
+                            <div style="display: flex; flex-direction:row; column-gap: 1em; align-items: start; justify-content: center;">
+                                <input type="checkbox" id="edit-todo-status" name="edit-todo-status" style="transform: scale(2);">
+                                <label for="edit-todo-status">Done?</label>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: flex-end; margin: 10px 0px 10px auto; column-gap: 10px;">
+                            <button type="submit" style="background-color: rgb(18, 145, 18);">Enter/Esc</button>
+                        </div>
+                    </div>
+                </form>
+            </dialog>
+
             <header>
                 <div>
                     <h2 data-project-info="name">Hospital Center</h2>
