@@ -251,13 +251,13 @@ if (editTodoItem) {
         //     e.currentTarget : ${e.currentTarget.id}                
         // `)
         const currentTodoItem = setCurTodo(e.target)
-        // console.log(currentTodoItem)
+        console.log(currentTodoItem)
 
         // console.log(editTodoItem.children[0])
         let currentTodoItemIndex = Array.from(editTodoItem.children).findIndex(item => {            
             return item === currentTodoItem
         })
-        // console.log(index)
+        console.log(currentTodoItemIndex)
         toggleModal("edit-todo-modal","show")
 
         const editTodoForm = document.getElementById("edit-todo-form") as HTMLFormElement
@@ -332,7 +332,7 @@ function setCurTodo (el) {
     if (!el) return null;
     // console.log('parameter el : ',el,"\n",el.classList.contains('todo-item'))
     if (el.classList.contains('todo-item')) {
-        el.setAttribute('current-todo', true)
+        // el.setAttribute('current-todo', true)
         return el
     } 
     return setCurTodo(el.parentElement)

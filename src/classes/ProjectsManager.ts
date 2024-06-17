@@ -100,9 +100,9 @@ export class ProjectsManager {
         let todoListUI = document.getElementById('todo-list') as HTMLDivElement
         if (!todoListUI) {return}
         todoListUI.innerHTML = ""
-        console.log(`updateTodoListUI : 
-            project.name : ${project.name}, 
-            project : `,project)
+        // console.log(`updateTodoListUI : 
+        //     project.name : ${project.name}, 
+        //     project : `,project)
         // const todo = project.todoList[0]
         project.todoList.forEach( todo => {
             const datestr =(new Date(todo.msgDate)).toDateString().split(" ")
@@ -169,13 +169,13 @@ export class ProjectsManager {
     newTodo(projectName: string, todoMessage: string, todoStatus: boolean) {
         if(!(todoMessage && projectName)) {return}  
         // if(!projectName) { return }
-        console.log("ProjectsManager.newTodo() : projectName = ",projectName)
+        // console.log("ProjectsManager.newTodo() : projectName = ",projectName)
         const project: Project = this.getProjectByName(projectName) as Project
         if(!project) {return}
         // const todo = new Todo({message:todoMessage, msgDate: new Date(), status:false})
         
         project.todoList.push({message:todoMessage, msgDate: new Date(), status: todoStatus})//todo)
-        console.log("ProjectsManager.newTodo() \n project.todoList.push : projectName = ",project.name,project.todoList)
+        // console.log("ProjectsManager.newTodo() \n project.todoList.push : projectName = ",project.name,project.todoList)
         this.updateTodoListUI(project)
         return project
     }
