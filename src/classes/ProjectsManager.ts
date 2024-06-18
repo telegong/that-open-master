@@ -182,14 +182,18 @@ export class ProjectsManager {
 
     editTodo(projectName: string, todoMessage: string, todoStatus: boolean, todoitemindex: number) {
         if(!(todoMessage && projectName)) {return}  
-        // console.log("ProjectsManager.editTodo() : projectName = ",projectName)
+
         const project: Project = this.getProjectByName(projectName) as Project
-        // console.log("ProjectsManager.editTodo() : project = ",project)
-        if(!project) {return}
+
+        // if(!project) {return}
         if(!project.todoList[todoitemindex]) {return} // Re~ally Important!!!
-        project.todoList[todoitemindex] = {message:todoMessage, msgDate: new Date(), status: todoStatus}
+        project.todoList[todoitemindex] = {
+            message:todoMessage, 
+            msgDate: project.todoList[todoitemindex].msgDate, 
+            status: todoStatus
+        }
+        // project.todoList[todoitemindex] = {message:todoMessage, msgDate: new Date(), status: todoStatus}
         
-        // Object.assign(project.todoList[todoitemindex], {message:todoMessage, msgDate: new Date(), status: todoStatus})
         console.log("ProjectsManager.editTodo() \n project.todoList.push : projectName = ",project.name,project.todoList)
         this.updateTodoListUI(project)
         return true
