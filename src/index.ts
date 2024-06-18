@@ -20,7 +20,6 @@ function toggleModal (id: string, action: "show" | "hide") {
 let projectsListUI = document.getElementById("projects-list") as HTMLElement
 const projectsManager = new ProjectsManager(projectsListUI)
 
-
 const newProjectBtn = document.getElementById("new-project-btn")
 if (newProjectBtn) {
     newProjectBtn.addEventListener("click",()=>{
@@ -190,9 +189,8 @@ if (newToDoBtn) {
         // const todo: string = prompt("Add new To-Do") as string
         toggleModal("new-todo-modal","show")
     })
-
 } else {     
-        console.warn("New Todo button was not found")
+    console.warn("New Todo button was not found")
 }
     
 
@@ -242,49 +240,25 @@ const editTodoItem = document.getElementById("todo-list")
 if (editTodoItem) {
     editTodoItem.addEventListener("click", (e) => {
         if(e.target.id == 'todo-list') return
-        // console.log(`e.target : ${e.target} 
-        //     e.target.tagName : ${e.target.tagName}
-        //     e.target.className : ${e.target.className}
-        //     e.target.id : ${e.target.id}
-        //     e.currentTarget : ${e.currentTarget.tagName}                
-        //     e.currentTarget : ${e.currentTarget.className}                
-        //     e.currentTarget : ${e.currentTarget.id}                
-        // `)
         const currentTodoItem = setCurTodo(e.target)
-        console.log(currentTodoItem)
-
-        // console.log(editTodoItem.children[0])
         let currentTodoItemIndex = Array.from(editTodoItem.children).findIndex(item => {            
             return item === currentTodoItem
         })
-        console.log(currentTodoItemIndex)
+        // console.log(currentTodoItemIndex)
         toggleModal("edit-todo-modal","show")
 
         const editTodoForm = document.getElementById("edit-todo-form") as HTMLFormElement
         if (editTodoForm instanceof HTMLFormElement) {
-            // const todoItems = editTodoItem.querySelectorAll('.todo-item')
-            // console.log(todoItems)
-            // const editTodoItemIndex = [...todoItems].findIndex(item => {
-            //     item.hasAttribute('current-todo') 
-            // }) 
-            // console.log(editTodoItemIndex)
-            // const todoExistItem = todoItems[editTodoItemIndex]
-            // console.log(todoExistItem)
             const todoExistMessage = editTodoForm.querySelector('textarea[name="edit-todo-message"]') as HTMLElement    
             todoExistMessage.textContent = currentTodoItem.querySelector('p[name="todomessage"]')?.textContent as string 
-
-            const todoExistStatus = editTodoForm.querySelector('input[name="edit-todo-status"]') as HTMLElement
-            todoExistStatus.value = currentTodoItem.querySelector('span[name="todostatus"]')?.value 
-            
-
+            const todoExistStatus = editTodoForm.querySelector('input[name="edit-todo-status"]') as HTMLInputElement
+            todoExistStatus.checked = currentTodoItem.querySelector('span[name="todostatus"]').textContent === 'done'   
 
             editTodoForm.addEventListener("submit", (e) => {
                 e.preventDefault()
                 const projectDetails = document.getElementById("project-details") as HTMLElement
                 let todoprojectName = projectDetails.querySelector("[data-project-info='name']")?.textContent as string
                 if (!(projectDetails && todoprojectName)) {return}
-
-
 
                 const formData = new FormData(editTodoForm) 
                 let todoMessage = formData.get('edit-todo-message') as string        
@@ -295,8 +269,7 @@ if (editTodoItem) {
                         editTodoForm.reset()
                     }
                     toggleModal("edit-todo-modal","hide")
-                    //throw Error('raise an error');
-                    
+                    //throw Error('raise an error');                 
                 } catch(err) {
                     // console.log("newTodoForm submit Error : ",err.message)
                     const errorMessage = document.getElementById("edit-error-message") as HTMLElement
@@ -307,32 +280,25 @@ if (editTodoItem) {
                     todoprojectName = "" 
                     todoMessage = ""
                     currentTodoItemIndex = NaN
-                    // todoStatus = true
-
                 }
                 return
             })
-
             const errorMessagCheckBTN = document.getElementById("edit-error-message-check-button") as HTMLButtonElement
             errorMessagCheckBTN.addEventListener("click",()=>{
                 toggleModal("edit-error-message-modal","hide")
             })
-
         } else {
             console.warn("Edit ToDo form was not found")
         }
         return 
     })
-
 } else {     
     console.warn("todo-list was not found")
 }
 
 function setCurTodo (el) {
     if (!el) return null;
-    // console.log('parameter el : ',el,"\n",el.classList.contains('todo-item'))
     if (el.classList.contains('todo-item')) {
-        // el.setAttribute('current-todo', true)
         return el
     } 
     return setCurTodo(el.parentElement)

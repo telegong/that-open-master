@@ -109,7 +109,8 @@ export class ProjectsManager {
             const msgdate = `${datestr[0]}, ${datestr[2]} ${datestr[1]}`
             const todoDoneDimm = todo.status? 'style= "opacity: 50%;"': ''
             const todoDone = todo.status? 'done': 'construction'
-            const todoitem =`<div class="todo-item" ${todoDoneDimm}>
+            const todoitem =`
+            <div class="todo-item" ${todoDoneDimm}>
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <div style="display: flex; column-gap: 15px; align-items: center;">
                         <span name='todostatus' class="material-icons-round" style="padding: 10px; background-color: #686868; border-radius: 10px;">${todoDone}</span>
@@ -169,12 +170,10 @@ export class ProjectsManager {
     newTodo(projectName: string, todoMessage: string, todoStatus: boolean) {
         if(!(todoMessage && projectName)) {return}  
         // if(!projectName) { return }
-        // console.log("ProjectsManager.newTodo() : projectName = ",projectName)
         const project: Project = this.getProjectByName(projectName) as Project
         if(!project) {return}
-        // const todo = new Todo({message:todoMessage, msgDate: new Date(), status:false})
-        
-        project.todoList.push({message:todoMessage, msgDate: new Date(), status: todoStatus})//todo)
+        // const todo = new Todo({message:todoMessage, msgDate: new Date(), status:false})        
+        project.todoList.push({message:todoMessage, msgDate: new Date(), status: todoStatus})
         // console.log("ProjectsManager.newTodo() \n project.todoList.push : projectName = ",project.name,project.todoList)
         this.updateTodoListUI(project)
         return project
@@ -182,9 +181,7 @@ export class ProjectsManager {
 
     editTodo(projectName: string, todoMessage: string, todoStatus: boolean, todoitemindex: number) {
         if(!(todoMessage && projectName)) {return}  
-
         const project: Project = this.getProjectByName(projectName) as Project
-
         // if(!project) {return}
         if(!project.todoList[todoitemindex]) {return} // Re~ally Important!!!
         project.todoList[todoitemindex] = {
@@ -192,9 +189,8 @@ export class ProjectsManager {
             msgDate: project.todoList[todoitemindex].msgDate, 
             status: todoStatus
         }
-        // project.todoList[todoitemindex] = {message:todoMessage, msgDate: new Date(), status: todoStatus}
-        
-        console.log("ProjectsManager.editTodo() \n project.todoList.push : projectName = ",project.name,project.todoList)
+        // project.todoList[todoitemindex] = {message:todoMessage, msgDate: new Date(), status: todoStatus}        
+        // console.log("ProjectsManager.editTodo() \n project.todoList.push : projectName = ",project.name,project.todoList)
         this.updateTodoListUI(project)
         return true
     }

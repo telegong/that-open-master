@@ -90,7 +90,7 @@ export class Project {
                 ${this.name.slice(0,2)}</p>
             <div>
                 <h5>${this.name}</h5>
-                <h5>${this.id}</h5>
+                <!--h5>${this.id}</h5-->
                 <p>${this.description}</p>
             </div>
         </div>
