@@ -94,7 +94,7 @@ export class ProjectsManager {
     }
 
 
-    private updateTodoListUI(project: Project){
+    updateTodoListUI(project: Project){
         // set To-Do list
         // let todoListUI = document.createElement("div")
         let todoListUI = document.getElementById('todo-list') as HTMLDivElement

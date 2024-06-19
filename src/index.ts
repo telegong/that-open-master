@@ -1,4 +1,4 @@
-import { IProject, UserRole, ProjectStatus } from "./classes/Project.ts"
+import { Project, IProject, UserRole, ProjectStatus } from "./classes/Project.ts"
 import { ProjectsManager } from "./classes/ProjectsManager.ts"
 
 function toggleModal (id: string, action: "show" | "hide") {
@@ -249,12 +249,12 @@ if (editTodoItem) {
 
         const editTodoForm = document.getElementById("edit-todo-form") as HTMLFormElement
         if (editTodoForm instanceof HTMLFormElement) {
-            const todoExistMessage = editTodoForm.querySelector('textarea[name="edit-todo-message"]') as HTMLElement    
-            todoExistMessage.textContent = currentTodoItem.querySelector('p[name="todomessage"]')?.textContent as string 
+            const todoExistMessage = editTodoForm.querySelector('textarea[name="edit-todo-message"]') as HTMLTextAreaElement    
+            todoExistMessage.textContent = currentTodoItem.querySelector('p[name="todomessage"]').textContent
             const todoExistStatus = editTodoForm.querySelector('input[name="edit-todo-status"]') as HTMLInputElement
             todoExistStatus.checked = currentTodoItem.querySelector('span[name="todostatus"]').textContent === 'done'   
 
-            editTodoForm.addEventListener("submit", (e) => {
+            editTodoForm.addEventListener("submit",(e)=>{
                 e.preventDefault()
                 const projectDetails = document.getElementById("project-details") as HTMLElement
                 let todoprojectName = projectDetails.querySelector("[data-project-info='name']")?.textContent as string
@@ -264,18 +264,18 @@ if (editTodoItem) {
                 let todoMessage = formData.get('edit-todo-message') as string        
                 let todoStatus = formData.get('edit-todo-status')? true : false
 
-                try {
+                try{
                     if(todoMessage && projectsManager.editTodo(todoprojectName, todoMessage, todoStatus, currentTodoItemIndex)) {
                         editTodoForm.reset()
                     }
                     toggleModal("edit-todo-modal","hide")
                     //throw Error('raise an error');                 
-                } catch(err) {
+                }catch(err){
                     // console.log("newTodoForm submit Error : ",err.message)
                     const errorMessage = document.getElementById("edit-error-message") as HTMLElement
                     errorMessage.textContent=`Error: ${err.message}`
                     toggleModal("edit-error-message-modal", "show")
-                } finally {
+                }finally{
                     //인수로 넘어온 값들을 초기화? 해준다
                     todoprojectName = "" 
                     todoMessage = ""
@@ -302,6 +302,34 @@ function setCurTodo (el) {
         return el
     } 
     return setCurTodo(el.parentElement)
+}
+
+//todo lists filtered by search text
+const todoSearch = document.getElementById('todo-search')
+if (todoSearch) {
+    todoSearch.addEventListener( 'input', searchTodos)
+}
+
+function searchTodos(event) {
+    const searchText = event.target.value.toLowerCase()
+
+    const projectDetails = document.getElementById("project-details") as HTMLElement
+    const todoprojectName = projectDetails.querySelector("[data-project-info='name']")?.textContent as string
+    if (!(projectDetails && todoprojectName)) {return}
+    
+    const curproject = projectsManager.getProjectByName(todoprojectName) as Project
+    projectsManager.updateTodoListUI(curproject)
+
+    if (searchText){
+        const allTodos = document.getElementById('todo-list') as HTMLElement
+        const sourcetodos = [...allTodos.children]
+        allTodos.innerHTML = ''
+        sourcetodos.forEach(todo => {
+            if(todo.querySelector('[name="todomessage"]')?.textContent?.toLowerCase().includes(searchText)) {
+                allTodos.appendChild(todo)
+            }
+        })
+    } 
 }
 
 // defaultProjectCreate
