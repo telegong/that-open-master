@@ -1,3 +1,9 @@
+## That Open Master Dev Lesson 2 Final Challenge Submit
+Thanks to Juan Hoyos!!
+
+
+
+===================================================================================================
 ## git clone
 ```cs
 PS D:\ThatOpenMaster\masterbimdev> git clone https://github.com/telegong/that-open-master.git
