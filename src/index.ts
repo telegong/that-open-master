@@ -1,5 +1,6 @@
 import { Project, IProject, UserRole, ProjectStatus } from "./classes/Project.ts"
 import { ProjectsManager } from "./classes/ProjectsManager.ts"
+import * as THREE from "three"
 
 function toggleModal (id: string, action: "show" | "hide") {
     const modal = document.getElementById(id)
@@ -341,5 +342,23 @@ if(projectsManager.list.length == 0){
         status : "Active",
         finishDate : new Date("2022-05-01"),        
     }
-    projectsManager.newProject(defaultProjectData)
+    // projectsManager.newProject(defaultProjectData)
+    const project = projectsManager.newProject(defaultProjectData)
+    project.ui.click()
 }
+
+// ThreeJS Viewer
+
+const scene = new THREE.Scene()  //Scene
+
+const screen_viewercontainer = document.getElementById("viewer-container") as HTMLElement  //Screen
+const screen_containerDimensions = screen_viewercontainer.getBoundingClientRect()
+const aspectRatio = screen_containerDimensions.width / screen_containerDimensions.height 
+
+const camera = new THREE.PerspectiveCamera(75, aspectRatio) //Camera
+
+const renderer = new THREE.WebGLRenderer() //Renderer CameraMan
+screen_viewercontainer.append(renderer.domElement) //Cinema Theater Play
+renderer.setSize(screen_containerDimensions.width, screen_containerDimensions.height )
+
+renderer.render(scene, camera)
