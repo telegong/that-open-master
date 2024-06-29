@@ -1,6 +1,7 @@
 import { Project, IProject, UserRole, ProjectStatus } from "./classes/Project.ts"
 import { ProjectsManager } from "./classes/ProjectsManager.ts"
 import * as THREE from "three"
+import {OrbitControls} from "three/examples/jsm/controls/OrbitControls.js"
 
 function toggleModal (id: string, action: "show" | "hide") {
     const modal = document.getElementById(id)
@@ -368,8 +369,22 @@ const material = new THREE.MeshStandardMaterial()
 const cube = new THREE.Mesh(boxGeometry, material)
 
 const directionalLight = new THREE.DirectionalLight()
+directionalLight.position.set(-3, 9, 6)
+directionalLight.intensity = 0.8
+const directionalLightBack = new THREE.DirectionalLight()
+directionalLightBack.position.set(3, -9, -6)
+directionalLightBack.intensity = 0.2
+
 const ambientLight = new THREE.AmbientLight()
+ambientLight.intensity = 0.4
 
-scene.add(cube, directionalLight, ambientLight)
+scene.add(cube, directionalLight, ambientLight ,directionalLightBack)
 
-renderer.render(scene, camera)
+const cameraControls = new OrbitControls(camera, screen_viewercontainer)
+
+function renderAnimation(){    
+    renderer.render(scene, camera)
+    requestAnimationFrame(renderAnimation)
+}
+
+renderAnimation()
