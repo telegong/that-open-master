@@ -353,16 +353,24 @@ if(projectsManager.list.length == 0){
 const scene = new THREE.Scene()  //Scene
 
 const screen_viewercontainer = document.getElementById("viewer-container") as HTMLElement  //Screen
-const screen_containerDimensions = screen_viewercontainer.getBoundingClientRect()
-const aspectRatio = screen_containerDimensions.width / screen_containerDimensions.height 
 
-const camera = new THREE.PerspectiveCamera(75, aspectRatio) //Camera
+const camera = new THREE.PerspectiveCamera(75) //Camera
 camera.position.z = 5
 
 const renderer = new THREE.WebGLRenderer() //Renderer CameraMan
 screen_viewercontainer.append(renderer.domElement) //Cinema Theater Play
-renderer.setSize(screen_containerDimensions.width, screen_containerDimensions.height )
 
+function resizeViewer() {
+    const screen_containerDimensions = screen_viewercontainer.getBoundingClientRect()
+    renderer.setSize(screen_containerDimensions.width, screen_containerDimensions.height)
+    const aspectRatio = screen_containerDimensions.width / screen_containerDimensions.height 
+    camera.aspect = aspectRatio
+    camera.updateProjectionMatrix()
+}
+
+window.addEventListener("resize", resizeViewer)
+
+resizeViewer()
 
 const boxGeometry = new THREE.BoxGeometry()
 const material = new THREE.MeshStandardMaterial()
@@ -389,11 +397,3 @@ function renderAnimation(){
 
 renderAnimation()
 
-window.addEventListener("resize", ()=> {
-    const screen_containerDimensions = screen_viewercontainer.getBoundingClientRect()
-    renderer.setSize(screen_containerDimensions.width, screen_containerDimensions.height)
-
-    const aspectRatio = screen_containerDimensions.width / screen_containerDimensions.height 
-    camera.aspect = aspectRatio
-    camera.updateProjectionMatrix()
-})
