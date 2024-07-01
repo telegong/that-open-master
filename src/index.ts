@@ -357,7 +357,8 @@ const screen_viewercontainer = document.getElementById("viewer-container") as HT
 const camera = new THREE.PerspectiveCamera(75) //Camera
 camera.position.z = 5
 
-const renderer = new THREE.WebGLRenderer() //Renderer CameraMan
+const renderer = new THREE.WebGLRenderer({alpha: true, antialias: true}) //Renderer CameraMan, 
+                                        // Renderer's configuration object
 screen_viewercontainer.append(renderer.domElement) //Cinema Theater Play
 
 function resizeViewer() {
