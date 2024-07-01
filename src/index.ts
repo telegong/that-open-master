@@ -388,3 +388,12 @@ function renderAnimation(){
 }
 
 renderAnimation()
+
+window.addEventListener("resize", ()=> {
+    const screen_containerDimensions = screen_viewercontainer.getBoundingClientRect()
+    renderer.setSize(screen_containerDimensions.width, screen_containerDimensions.height)
+
+    const aspectRatio = screen_containerDimensions.width / screen_containerDimensions.height 
+    camera.aspect = aspectRatio
+    camera.updateProjectionMatrix()
+})
