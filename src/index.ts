@@ -1,3 +1,4 @@
+import { color } from "three/examples/jsm/nodes/Nodes.js"
 import { Project, IProject, UserRole, ProjectStatus } from "./classes/Project.ts"
 import { ProjectsManager } from "./classes/ProjectsManager.ts"
 import * as THREE from "three"
@@ -376,7 +377,7 @@ resizeViewer()
 const boxGeometry = new THREE.BoxGeometry()
 const material = new THREE.MeshStandardMaterial()
 const cube = new THREE.Mesh(boxGeometry, material)
-
+cube.material.color = new THREE.Color("skyblue")//#a09911")
 const directionalLight = new THREE.DirectionalLight()
 directionalLight.position.set(-3, 9, 6)
 directionalLight.intensity = 0.8
@@ -398,3 +399,11 @@ function renderAnimation(){
 
 renderAnimation()
 
+const axes = new THREE.AxesHelper()
+const grid = new THREE.GridHelper()
+scene.add(axes, grid)
+
+// cube.position.x = 2
+// cube.position.y = 0
+// cube.position.z = 1
+cube.position.set(2,0,-1)
