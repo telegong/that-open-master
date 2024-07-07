@@ -2,6 +2,8 @@ import { color } from "three/examples/jsm/nodes/Nodes.js"
 import { Project, IProject, UserRole, ProjectStatus } from "./classes/Project.ts"
 import { ProjectsManager } from "./classes/ProjectsManager.ts"
 import * as THREE from "three"
+
+import { GUI } from "three/examples/jsm/libs/lil-gui.module.min";
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls.js"
 
 function toggleModal (id: string, action: "show" | "hide") {
@@ -401,9 +403,26 @@ renderAnimation()
 
 const axes = new THREE.AxesHelper()
 const grid = new THREE.GridHelper()
+grid.material.transparent = true
+grid.material.opacity = 0.4
+grid.material.color = new THREE.Color("#808080")
 scene.add(axes, grid)
 
 // cube.position.x = 2
 // cube.position.y = 0
 // cube.position.z = 1
 cube.position.set(2,0,-1)
+
+const gui = new GUI()
+
+const cubeControls = gui.addFolder("CubeBox")
+
+
+cubeControls.add(cube.position, "x", -10, 10, 1)
+cubeControls.add(cube.position, "y", -10, 10, 1)
+cubeControls.add(cube.position, "z", -10, 10, 1)
+
+// const someObject = {name: "Eugene", age: 55}
+
+// cubeControls.add(someObject,'age')
+// cubeControls.add(someObject, "name")
