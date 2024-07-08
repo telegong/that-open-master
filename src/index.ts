@@ -3,7 +3,8 @@ import { Project, IProject, UserRole, ProjectStatus } from "./classes/Project.ts
 import { ProjectsManager } from "./classes/ProjectsManager.ts"
 import * as THREE from "three"
 
-import { GUI } from "three/examples/jsm/libs/lil-gui.module.min";
+import { GUI } from "three/examples/jsm/libs/lil-gui.module.min.js";
+// import { GUI } from "three/examples/jsm/libs/lil-gui.module.min.d.ts";
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls.js"
 
 function toggleModal (id: string, action: "show" | "hide") {
@@ -421,6 +422,10 @@ const cubeControls = gui.addFolder("CubeBox")
 cubeControls.add(cube.position, "x", -10, 10, 1)
 cubeControls.add(cube.position, "y", -10, 10, 1)
 cubeControls.add(cube.position, "z", -10, 10, 1)
+
+cubeControls.add(cube, "visible") //cube.visible
+cubeControls.addColor(cube.material, "color") //cube.material.color
+
 
 // const someObject = {name: "Eugene", age: 55}
 
