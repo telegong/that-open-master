@@ -431,3 +431,18 @@ cubeControls.addColor(cube.material, "color") //cube.material.color
 
 // cubeControls.add(someObject,'age')
 // cubeControls.add(someObject, "name")
+
+// Lesson Assignments
+// directional light gui controls
+const directionalLightControls = gui.addFolder("Directional Light")
+
+directionalLightControls.add(directionalLight.position, 'x', -10, 10, 0.5)
+directionalLightControls.add(directionalLight.position, 'y', -10, 10, 0.5)
+directionalLightControls.add(directionalLight.position, 'z', -10, 10, 0.5)
+
+directionalLightControls.add(directionalLight, 'intensity', 0, 1, 0.1 )
+
+directionalLightControls.addColor(directionalLight, 'color' )
+
+
+
