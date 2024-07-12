@@ -6,6 +6,8 @@ import * as THREE from "three"
 import { GUI } from "three/examples/jsm/libs/lil-gui.module.min.js";
 // import { GUI } from "three/examples/jsm/libs/lil-gui.module.min.d.ts";
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls.js"
+import {OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js"
+import {MTLLoader } from "three/examples/jsm/loaders/MTLLoader.js"
 
 function toggleModal (id: string, action: "show" | "hide") {
     const modal = document.getElementById(id)
@@ -391,7 +393,8 @@ directionalLightBack.intensity = 0.2
 const ambientLight = new THREE.AmbientLight()
 ambientLight.intensity = 0.4
 
-scene.add(cube, directionalLight, ambientLight ,directionalLightBack)
+// scene.add(cube, directionalLight, ambientLight ,directionalLightBack)
+scene.add(directionalLight, ambientLight ,directionalLightBack)
 
 const cameraControls = new OrbitControls(camera, screen_viewercontainer)
 
@@ -445,4 +448,9 @@ directionalLightControls.add(directionalLight, 'intensity', 0, 1, 0.1 )
 directionalLightControls.addColor(directionalLight, 'color' )
 
 
+const objloader = new OBJLoader()
+const mtlloader = new MTLLoader()
 
+objloader.load("../assets/Gear/Gear1.obj", (mesh) => {
+    scene.add(mesh)
+})
