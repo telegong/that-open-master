@@ -198,3 +198,7 @@ Port 5173 is in use, trying another one...
   ➜  press h + enter to show help   
 ```
 
+## typescript 
+```js 
+npm i typescript --save-dev
+```

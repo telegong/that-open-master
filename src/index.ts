@@ -5,9 +5,13 @@ import * as THREE from "three"
 
 import { GUI } from "three/examples/jsm/libs/lil-gui.module.min.js";
 // import { GUI } from "three/examples/jsm/libs/lil-gui.module.min.d.ts";
-import {OrbitControls} from "three/examples/jsm/controls/OrbitControls.js"
-import {OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js"
-import {MTLLoader } from "three/examples/jsm/loaders/MTLLoader.js"
+import {OrbitControls} from "three/examples/jsm/controls/OrbitControls.js";
+import {OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
+import {MTLLoader } from "three/examples/jsm/loaders/MTLLoader.js";
+// import { GLTFLoader } from "three/examples/jsm/Addons.js";
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'; 
+//D:\ThatOpenCompany\masterbimdev\that-open-master\node_modules\three\examples\jsm\loaders\GLTFLoader.js
+
 
 function toggleModal (id: string, action: "show" | "hide") {
     const modal = document.getElementById(id)
@@ -393,17 +397,28 @@ directionalLightBack.intensity = 0.2
 const ambientLight = new THREE.AmbientLight()
 ambientLight.intensity = 0.4
 
+const spotLight = new THREE.SpotLight()
+spotLight.position.set(1, 9, 5)
+spotLight.decay = 1
+spotLight.distance = 0
+spotLight.penumbra = 0.2
+spotLight.intensity = 10
+
+// spotLight.castShadow = true
+console.log("spotLight.intensity: ",spotLight.intensity)
+console.log("spotLight.position: ",spotLight.position)
+console.log("spotLight.penumbra: ", spotLight.penumbra)
+console.log("spotLight.decay: ", spotLight.decay)
+console.log("spotLight.distance: ", spotLight.distance)
+
+const spotLightHelper = new THREE.SpotLightHelper(spotLight)
+
 // scene.add(cube, directionalLight, ambientLight ,directionalLightBack)
-scene.add(directionalLight, ambientLight ,directionalLightBack)
+scene.add(directionalLight, ambientLight ,directionalLightBack, spotLight, spotLightHelper)
 
 const cameraControls = new OrbitControls(camera, screen_viewercontainer)
 
-function renderAnimation(){    
-    renderer.render(scene, camera)
-    requestAnimationFrame(renderAnimation)
-}
 
-renderAnimation()
 
 const axes = new THREE.AxesHelper()
 const grid = new THREE.GridHelper()
@@ -435,7 +450,7 @@ cubeControls.addColor(cube.material, "color") //cube.material.color
 // cubeControls.add(someObject,'age')
 // cubeControls.add(someObject, "name")
 
-// Lesson Assignments
+// m3c2l6 Lesson Assignments
 // directional light gui controls
 const directionalLightControls = gui.addFolder("Directional Light")
 
@@ -448,9 +463,66 @@ directionalLightControls.add(directionalLight, 'intensity', 0, 1, 0.1 )
 directionalLightControls.addColor(directionalLight, 'color' )
 
 
+// m3c2l7 Lesson Assignments
+// spot light gui controls
+const spotLightControls = gui.addFolder("Spot Light")
+spotLightControls.add(spotLight, 'intensity', 0, 100, 1)
+spotLightControls.add(spotLight.position, 'x', -100, 100, 1)
+spotLightControls.add(spotLight.position, 'y', -100, 100, 1)
+spotLightControls.add(spotLight.position, 'z', -100, 100, 1)
+spotLightControls.add(spotLight, 'penumbra', 0, 1, 0.1)
+spotLightControls.add(spotLight, 'decay', 0, 10, 1)
+spotLightControls.add(spotLight,'distance', 0, 10, 0.1)
+spotLightControls.add(spotLightHelper,'visible')
+
+
 const objloader = new OBJLoader()
 const mtlloader = new MTLLoader()
 
-objloader.load("../assets/Gear/Gear1.obj", (mesh) => {
-    scene.add(mesh)
+
+mtlloader.load("../assets/Gear/Gear1.mtl", (materials) => {
+    materials.preload()
+    objloader.setMaterials(materials)
+    objloader.load("../assets/Gear/Gear1.obj", (meshs) => {
+        scene.add(meshs)
+        meshs.position.set(0, -2.8, 0)
+    })
 })
+
+// m3c2l7 Lesson Assignments
+// 2. glTFloader
+let gltfmodel, gltfskeleton, gltfmesh, mixer
+
+const gltfloader = new GLTFLoader()
+gltfloader.load("../assets/glTF/BrainStem.glb", (gltf)=>{
+    gltfmodel = gltf.scene
+    console.log(gltf)
+    scene.add(gltfmodel)
+
+    // gltfskeleton = new THREE.SkeletonHelper(gltfmodel)
+    // gltfskeleton.visible = true
+    // scene.add(gltfskeleton)
+    mixer = new THREE.AnimationMixer(gltfmodel)
+    const clips = gltf.animations;
+    const clip = THREE.AnimationClip.findByName( clips, 'animation_0')
+    const action = mixer.clipAction( clip)
+    action.play()
+    // function update () {
+    //     mixer.update( deltaSeconds)
+    // }
+    // clips.forEach((clip)=> {
+    //     console.log(clip)
+    //     mixer.clipAction(clip).play()
+    // })
+
+})
+
+function renderAnimation(){   
+    const deltaTime = clock.getDelta()
+    if (mixer) mixer.update(deltaTime)
+    renderer.render(scene, camera)
+    requestAnimationFrame(renderAnimation)
+}
+
+const clock = new THREE.Clock()
+renderAnimation()
