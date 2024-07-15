@@ -12,7 +12,6 @@ import {MTLLoader } from "three/examples/jsm/loaders/MTLLoader.js";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'; 
 //D:\ThatOpenCompany\masterbimdev\that-open-master\node_modules\three\examples\jsm\loaders\GLTFLoader.js
 
-
 function toggleModal (id: string, action: "show" | "hide") {
     const modal = document.getElementById(id)
     if (!(modal && modal instanceof HTMLDialogElement)) {
@@ -414,7 +413,7 @@ console.log("spotLight.distance: ", spotLight.distance)
 const spotLightHelper = new THREE.SpotLightHelper(spotLight)
 
 // scene.add(cube, directionalLight, ambientLight ,directionalLightBack)
-scene.add(directionalLight, ambientLight ,directionalLightBack, spotLight, spotLightHelper)
+scene.add(cube, directionalLight, ambientLight ,directionalLightBack, spotLight, spotLightHelper)
 
 const cameraControls = new OrbitControls(camera, screen_viewercontainer)
 
@@ -436,7 +435,7 @@ const gui = new GUI()
 
 const cubeControls = gui.addFolder("CubeBox")
 
-
+cube.visible = false
 cubeControls.add(cube.position, "x", -10, 10, 1)
 cubeControls.add(cube.position, "y", -10, 10, 1)
 cubeControls.add(cube.position, "z", -10, 10, 1)
@@ -491,7 +490,7 @@ mtlloader.load("../assets/Gear/Gear1.mtl", (materials) => {
 
 // m3c2l7 Lesson Assignments
 // 2. glTFloader
-let gltfmodel, gltfskeleton, gltfmesh, mixer
+let gltfmodel, mixer, gltfskeleton
 
 const gltfloader = new GLTFLoader()
 gltfloader.load("../assets/glTF/BrainStem.glb", (gltf)=>{
@@ -507,9 +506,7 @@ gltfloader.load("../assets/glTF/BrainStem.glb", (gltf)=>{
     const clip = THREE.AnimationClip.findByName( clips, 'animation_0')
     const action = mixer.clipAction( clip)
     action.play()
-    // function update () {
-    //     mixer.update( deltaSeconds)
-    // }
+
     // clips.forEach((clip)=> {
     //     console.log(clip)
     //     mixer.clipAction(clip).play()
@@ -517,12 +514,18 @@ gltfloader.load("../assets/glTF/BrainStem.glb", (gltf)=>{
 
 })
 
-function renderAnimation(){   
+
+const clock = new THREE.Clock()
+
+function updateAnimation() {
     const deltaTime = clock.getDelta()
     if (mixer) mixer.update(deltaTime)
+}
+
+function renderAnimation() {   
+    updateAnimation()
     renderer.render(scene, camera)
     requestAnimationFrame(renderAnimation)
 }
 
-const clock = new THREE.Clock()
 renderAnimation()
