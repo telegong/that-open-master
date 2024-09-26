@@ -1,4 +1,5 @@
 import { color } from "three/examples/jsm/nodes/Nodes.js"
+import * as OBC from "openbim-components"
 import { Project, IProject, UserRole, ProjectStatus } from "./classes/Project.ts"
 import { ProjectsManager } from "./classes/ProjectsManager.ts"
 import * as THREE from "three"
@@ -359,122 +360,151 @@ if(projectsManager.list.length == 0){
 
 // ThreeJS Viewer
 
-const scene = new THREE.Scene()  //Scene
+// const scene = new THREE.Scene()  //Scene
 
-const screen_viewercontainer = document.getElementById("viewer-container") as HTMLElement  //Screen
+// const screen_viewercontainer = document.getElementById("viewer-container") as HTMLElement  //Screen
 
-const camera = new THREE.PerspectiveCamera(75) //Camera
-camera.position.z = 5
+// const camera = new THREE.PerspectiveCamera(75) //Camera
+// camera.position.z = 5
 
-const renderer = new THREE.WebGLRenderer({alpha: true, antialias: true}) //Renderer CameraMan, 
-                                        // Renderer's configuration object
-screen_viewercontainer.append(renderer.domElement) //Cinema Theater Play
+// const renderer = new THREE.WebGLRenderer({alpha: true, antialias: true}) //Renderer CameraMan, 
+//                                         // Renderer's configuration object
+// screen_viewercontainer.append(renderer.domElement) //Cinema Theater Play
 
-function resizeViewer() {
-    const screen_containerDimensions = screen_viewercontainer.getBoundingClientRect()
-    renderer.setSize(screen_containerDimensions.width, screen_containerDimensions.height)
-    const aspectRatio = screen_containerDimensions.width / screen_containerDimensions.height 
-    camera.aspect = aspectRatio
-    camera.updateProjectionMatrix()
-}
+// function resizeViewer() {
+//     const screen_containerDimensions = screen_viewercontainer.getBoundingClientRect()
+//     renderer.setSize(screen_containerDimensions.width, screen_containerDimensions.height)
+//     const aspectRatio = screen_containerDimensions.width / screen_containerDimensions.height 
+//     camera.aspect = aspectRatio
+//     camera.updateProjectionMatrix()
+// }
 
-window.addEventListener("resize", resizeViewer)
+// window.addEventListener("resize", resizeViewer)
 
-resizeViewer()
+// resizeViewer()
 
 const boxGeometry = new THREE.BoxGeometry()
 const material = new THREE.MeshStandardMaterial()
 const cube = new THREE.Mesh(boxGeometry, material)
 cube.material.color = new THREE.Color("skyblue")//#a09911")
-const directionalLight = new THREE.DirectionalLight()
-directionalLight.position.set(-3, 9, 6)
-directionalLight.intensity = 0.8
-const directionalLightBack = new THREE.DirectionalLight()
-directionalLightBack.position.set(3, -9, -6)
-directionalLightBack.intensity = 0.2
+// const directionalLight = new THREE.DirectionalLight()
+// directionalLight.position.set(-3, 9, 6)
+// directionalLight.intensity = 0.8
+// const directionalLightBack = new THREE.DirectionalLight()
+// directionalLightBack.position.set(3, -9, -6)
+// directionalLightBack.intensity = 0.2
 
-const ambientLight = new THREE.AmbientLight()
-ambientLight.intensity = 0.4
+// const ambientLight = new THREE.AmbientLight()
+// ambientLight.intensity = 0.4
 
-const spotLight = new THREE.SpotLight()
-spotLight.position.set(1, 9, 5)
-spotLight.decay = 1
-spotLight.distance = 0
-spotLight.penumbra = 0.2
-spotLight.intensity = 10
+// const spotLight = new THREE.SpotLight()
+// spotLight.position.set(1, 9, 5)
+// spotLight.decay = 1
+// spotLight.distance = 0
+// spotLight.penumbra = 0.2
+// spotLight.intensity = 10
 
-// spotLight.castShadow = true
-console.log("spotLight.intensity: ",spotLight.intensity)
-console.log("spotLight.position: ",spotLight.position)
-console.log("spotLight.penumbra: ", spotLight.penumbra)
-console.log("spotLight.decay: ", spotLight.decay)
-console.log("spotLight.distance: ", spotLight.distance)
+// // spotLight.castShadow = true
+// console.log("spotLight.intensity: ",spotLight.intensity)
+// console.log("spotLight.position: ",spotLight.position)
+// console.log("spotLight.penumbra: ", spotLight.penumbra)
+// console.log("spotLight.decay: ", spotLight.decay)
+// console.log("spotLight.distance: ", spotLight.distance)
 
-const spotLightHelper = new THREE.SpotLightHelper(spotLight)
+// const spotLightHelper = new THREE.SpotLightHelper(spotLight)
 
-// scene.add(cube, directionalLight, ambientLight ,directionalLightBack)
-scene.add(cube, directionalLight, ambientLight ,directionalLightBack, spotLight, spotLightHelper)
+// // scene.add(cube, directionalLight, ambientLight ,directionalLightBack)
+// scene.add(cube, directionalLight, ambientLight ,directionalLightBack, spotLight, spotLightHelper)
 
-const cameraControls = new OrbitControls(camera, screen_viewercontainer)
-
-
-
-const axes = new THREE.AxesHelper()
-const grid = new THREE.GridHelper()
-grid.material.transparent = true
-grid.material.opacity = 0.4
-grid.material.color = new THREE.Color("#808080")
-scene.add(axes, grid)
-
-// cube.position.x = 2
-// cube.position.y = 0
-// cube.position.z = 1
-cube.position.set(2,0,-1)
-
-const gui = new GUI()
-
-const cubeControls = gui.addFolder("CubeBox")
-
-cube.visible = false
-cubeControls.add(cube.position, "x", -10, 10, 1)
-cubeControls.add(cube.position, "y", -10, 10, 1)
-cubeControls.add(cube.position, "z", -10, 10, 1)
-
-cubeControls.add(cube, "visible") //cube.visible
-cubeControls.addColor(cube.material, "color") //cube.material.color
+// const cameraControls = new OrbitControls(camera, screen_viewercontainer)
 
 
-// const someObject = {name: "Eugene", age: 55}
 
-// cubeControls.add(someObject,'age')
-// cubeControls.add(someObject, "name")
+// const axes = new THREE.AxesHelper()
+// const grid = new THREE.GridHelper()
+// grid.material.transparent = true
+// grid.material.opacity = 0.4
+// grid.material.color = new THREE.Color("#808080")
+// scene.add(axes, grid)
 
-// m3c2l6 Lesson Assignments
-// directional light gui controls
-const directionalLightControls = gui.addFolder("Directional Light")
+// // cube.position.x = 2
+// // cube.position.y = 0
+// // cube.position.z = 1
+// cube.position.set(2,0,-1)
 
-directionalLightControls.add(directionalLight.position, 'x', -10, 10, 0.5)
-directionalLightControls.add(directionalLight.position, 'y', -10, 10, 0.5)
-directionalLightControls.add(directionalLight.position, 'z', -10, 10, 0.5)
+// const gui = new GUI()
 
-directionalLightControls.add(directionalLight, 'intensity', 0, 1, 0.1 )
+// const cubeControls = gui.addFolder("CubeBox")
 
-directionalLightControls.addColor(directionalLight, 'color' )
+// cube.visible = false
+// cubeControls.add(cube.position, "x", -10, 10, 1)
+// cubeControls.add(cube.position, "y", -10, 10, 1)
+// cubeControls.add(cube.position, "z", -10, 10, 1)
 
-
-// m3c2l7 Lesson Assignments
-// spot light gui controls
-const spotLightControls = gui.addFolder("Spot Light")
-spotLightControls.add(spotLight, 'intensity', 0, 100, 1)
-spotLightControls.add(spotLight.position, 'x', -100, 100, 1)
-spotLightControls.add(spotLight.position, 'y', -100, 100, 1)
-spotLightControls.add(spotLight.position, 'z', -100, 100, 1)
-spotLightControls.add(spotLight, 'penumbra', 0, 1, 0.1)
-spotLightControls.add(spotLight, 'decay', 0, 10, 1)
-spotLightControls.add(spotLight,'distance', 0, 10, 0.1)
-spotLightControls.add(spotLightHelper,'visible')
+// cubeControls.add(cube, "visible") //cube.visible
+// cubeControls.addColor(cube.material, "color") //cube.material.color
 
 
+// // const someObject = {name: "Eugene", age: 55}
+
+// // cubeControls.add(someObject,'age')
+// // cubeControls.add(someObject, "name")
+
+// // m3c2l6 Lesson Assignments
+// // directional light gui controls
+// const directionalLightControls = gui.addFolder("Directional Light")
+
+// directionalLightControls.add(directionalLight.position, 'x', -10, 10, 0.5)
+// directionalLightControls.add(directionalLight.position, 'y', -10, 10, 0.5)
+// directionalLightControls.add(directionalLight.position, 'z', -10, 10, 0.5)
+
+// directionalLightControls.add(directionalLight, 'intensity', 0, 1, 0.1 )
+
+// directionalLightControls.addColor(directionalLight, 'color' )
+
+
+// // m3c2l7 Lesson Assignments
+// // spot light gui controls
+// const spotLightControls = gui.addFolder("Spot Light")
+// spotLightControls.add(spotLight, 'intensity', 0, 100, 1)
+// spotLightControls.add(spotLight.position, 'x', -100, 100, 1)
+// spotLightControls.add(spotLight.position, 'y', -100, 100, 1)
+// spotLightControls.add(spotLight.position, 'z', -100, 100, 1)
+// spotLightControls.add(spotLight, 'penumbra', 0, 1, 0.1)
+// spotLightControls.add(spotLight, 'decay', 0, 10, 1)
+// spotLightControls.add(spotLight,'distance', 0, 10, 0.1)
+// spotLightControls.add(spotLightHelper,'visible')
+
+
+
+
+const viewer = new OBC.Components()
+
+const sceneComponent = new OBC.SimpleScene(viewer)
+sceneComponent.setup()
+viewer.scene = sceneComponent
+const scene = sceneComponent.get()
+scene.background = null
+
+const viewerContainer = document.getElementById("viewer-container") as HTMLDivElement
+const rendererComponent = new OBC.SimpleRenderer(viewer, viewerContainer)
+viewer.renderer = rendererComponent
+const renderer = rendererComponent.get()
+
+const cameraComponent = new OBC.OrthoPerspectiveCamera(viewer)
+viewer.camera = cameraComponent
+const camera = cameraComponent.get()
+
+viewer.init()
+cameraComponent.updateAspect()
+scene.add(cube)
+
+
+
+
+
+
+// objloader
 const objloader = new OBJLoader()
 const mtlloader = new MTLLoader()
 
@@ -488,8 +518,8 @@ mtlloader.load("../assets/Gear/Gear1.mtl", (materials) => {
     })
 })
 
-// m3c2l7 Lesson Assignments
-// 2. glTFloader
+// // m3c2l7 Lesson Assignments
+// // 2. glTFloader
 let gltfmodel, mixer, gltfskeleton
 
 const gltfloader = new GLTFLoader()
@@ -498,19 +528,19 @@ gltfloader.load("../assets/glTF/BrainStem.glb", (gltf)=>{
     console.log(gltf)
     scene.add(gltfmodel)
 
-    // gltfskeleton = new THREE.SkeletonHelper(gltfmodel)
-    // gltfskeleton.visible = true
-    // scene.add(gltfskeleton)
+//     // gltfskeleton = new THREE.SkeletonHelper(gltfmodel)
+//     // gltfskeleton.visible = true
+//     // scene.add(gltfskeleton)
     mixer = new THREE.AnimationMixer(gltfmodel)
     const clips = gltf.animations;
     const clip = THREE.AnimationClip.findByName( clips, 'animation_0')
     const action = mixer.clipAction( clip)
     action.play()
 
-    // clips.forEach((clip)=> {
-    //     console.log(clip)
-    //     mixer.clipAction(clip).play()
-    // })
+//     // clips.forEach((clip)=> {
+//     //     console.log(clip)
+//     //     mixer.clipAction(clip).play()
+//     // })
 
 })
 
@@ -529,3 +559,4 @@ function renderAnimation() {
 }
 
 renderAnimation()
+
