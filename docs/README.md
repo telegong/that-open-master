@@ -139,7 +139,6 @@ PS D:\ThatOpenMaster\masterbimdev\that-open-master> npm run dev -- --host
   VITE v5.2.7  ready in 314 ms
 
   ➜  Local:   http://localhost:5173/
-  ➜  Network: http://169.254.181.5:5173/
   ➜  Network: http://192.168.240.1:5173/
   ➜  Network: http://192.168.0.4:5173/
   ➜  Network: http://172.30.1.36:5173/
@@ -171,7 +170,7 @@ PS D:\ThatOpenMaster\masterbimdev\that-open-master> npx vite --host
   VITE v5.2.7  ready in 314 ms
 
   ➜  Local:   http://localhost:5173/
-  ➜  Network: http://169.254.181.5:5173/
+  ➜  Network: http://169.254.111.1:5173/
   ➜  Network: http://192.168.240.1:5173/
   ➜  Network: http://192.168.0.4:5173/
   ➜  Network: http://172.30.1.36:5173/
