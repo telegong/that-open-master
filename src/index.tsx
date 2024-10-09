@@ -1,3 +1,7 @@
+import * as React from "react"
+import * as ReactDOM from "react-dom/client"
+import { Sidebar } from "./react-components/Sidebar.tsx"
+
 import { color } from "three/examples/jsm/nodes/Nodes.js"
 import * as OBC from "openbim-components"
 import { Project, IProject, UserRole, ProjectStatus } from "./classes/Project.ts"
@@ -12,6 +16,13 @@ import {MTLLoader } from "three/examples/jsm/loaders/MTLLoader.js";
 // import { GLTFLoader } from "three/examples/jsm/Addons.js";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'; 
 //D:\ThatOpenCompany\masterbimdev\that-open-master\node_modules\three\examples\jsm\loaders\GLTFLoader.js
+
+const rootElement = document.getElementById("app") as HTMLDivElement
+const appRoot = ReactDOM.createRoot(rootElement)
+appRoot.render(
+    <Sidebar />
+)
+
 
 function toggleModal (id: string, action: "show" | "hide") {
     const modal = document.getElementById(id)
