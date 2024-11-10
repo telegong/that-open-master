@@ -11,9 +11,9 @@ node_modules
 dist
 dist-ssr
 *.local
-assets/Gear/*
-assets/glTF/*
-assets/IFC/*
+assets/Gear/
+assets/glTF/
+assets/IFC/
 
 # Editor directories and files
 .vscode/*
