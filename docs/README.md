@@ -201,3 +201,26 @@ Port 5173 is in use, trying another one...
 ```js 
 npm i typescript --save-dev
 ```
+
+
+
+## 이미 Git에 추가된 파일 무시하기
+.gitignore 파일에 assets/Gear/, assets/glTF/, assets/IFC/를 추가하는 것은 올바른 표현입니다. 이렇게 하면 해당 디렉토리와 그 하위 파일들이 Git의 버전 관리에서 제외됩니다.
+
+하지만, 이미 Git에 추가된 파일들은 .gitignore에 추가해도 무시되지 않습니다. 이미 추적 중인 파일들을 무시하려면 다음 명령어를 사용해 캐시에서 제거해야 합니다:
+
+```bash
+git rm -r --cached assets/Gear/
+git rm -r --cached assets/glTF/
+git rm -r --cached assets/IFC/
+```
+
+그 후 변경 사항을 커밋하고 푸시하면 됩니다:
+
+```bash
+git add .gitignore
+git commit -m "Update .gitignore to ignore assets directories"
+git push origin main
+```
+
+이렇게 하면 .gitignore 파일에 추가한 내용이 GitHub에 적용되어, 지정한 디렉토리와 파일이 버전 관리에서 제외됩니다. 😊
