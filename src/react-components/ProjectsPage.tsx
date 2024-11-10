@@ -2,7 +2,7 @@ import * as React from "react"
 
 export function ProjectsPage() {
     return(
-        <div className="page" id="projects-page" >
+        <div className="page" id="projects-page" style={{display: "flex"}}>
             <dialog id="new-project-modal">
                 <form id="new-project-form">
                     <h2>New Project</h2>
@@ -10,11 +10,20 @@ export function ProjectsPage() {
                         <div className="form-field-container">
                             <label><span className="material-icons-round">apartment </span>Name</label>
                             <input name="name" type="text" placeholder="What's the name of your project?"/>
-                            <p style="color: gray; font-size: var(--font-sm); margin-top: 5px; font-style: italic;">TIP: Give it a short name</p>
+                            <p 
+                                style={{
+                                    color: "gray", 
+                                    fontSize: "var(--font-sm)",
+                                    marginTop: "5px",
+                                    fontStyle: "italic"
+                                }}
+                            >
+                                TIP: Give it a short name
+                            </p>
                         </div>
                         <div className="form-field-container">
                             <label><span className="material-icons-round">subject </span>Description</label>
-                            <textarea name="description" cols="30" rows="5" placeholder="Give your project a nice description! So people is jealous about it"></textarea>
+                            <textarea name="description" cols={30} rows={5} placeholder="Give your project a nice description! So people is jealous about it"></textarea>
                         </div>
                         <div className="form-field-container">
                             <label><span className="material-icons-round">person </span>Role</label>
@@ -37,9 +46,9 @@ export function ProjectsPage() {
                             <input name="finishDate" type="date" ></input>
                         </div>
                     </div>
-                    <div style="display: flex; justify-content: flex-end; margin: 10px 0px 10px auto; column-gap: 10px;">
-                        <button id="project-input-canel" type="button" style="background-color: transparent;">Cancel</button>
-                        <button type="submit" style="background-color: rgb(18, 145, 18);">Accept</button>
+                    <div style={{display: "flex", justifyContent: "flex-end", margin: "10px 0px 10px auto", columnGap: "10px"}}>
+                        <button id="project-input-canel" type="button" style={{backgroundColor: "transparent"}}>Cancel</button>
+                        <button type="submit" style={{backgroundColor: "rgb(18, 145, 18)"}}>Accept</button>
                     </div>
                 </form>
             </dialog>
@@ -51,20 +60,20 @@ export function ProjectsPage() {
                         <span id="error-message">Error Message here!</span>
                     </label>
                 </div>
-                <div style="display: flex; justify-content: flex-end;">
+                <div style={{display: "flex", justifyContent: "flex-end"}}>
                     <button id="error-message-check-button">Check</button>
                 </div>
             </dialog>
             <header>
                 <h2>Projects</h2>
-                <div style="display: flex; align-items: center; column-gap: 15px;">
+                <div style={{display: "flex", alignItems: "center", columnGap: "15px"}}>
                     <span id="import-projects-btn" className="material-icons-round action-icon">file_upload</span>
                     <span id="export-projects-btn" className="material-icons-round action-icon">file_download</span>
                     <button id="new-project-btn"><span className="material-icons-round">add</span>New project</button>
                 </div>
             </header>
             <div id="projects-list">
-                <!-- <div className="project-card">
+                {/* <!-- <div className="project-card">
                     <div className="card-header">
                         <p style="background-color: #ca8134; padding: 10px; border-radius: 8px; aspect-ratio: 1;">HC</p>
                         <div>
@@ -91,7 +100,7 @@ export function ProjectsPage() {
                         </div>
 
                     </div>
-                </div> -->
+                </div> --> */}
 
             </div>
         </div>

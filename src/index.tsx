@@ -1,6 +1,7 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom/client"
 import { Sidebar } from "./react-components/Sidebar.tsx"
+import { ProjectsPage } from "./react-components/ProjectsPage.tsx"
 
 import { color } from "three/examples/jsm/nodes/Nodes.js"
 import * as OBC from "openbim-components"
@@ -20,7 +21,10 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 const rootElement = document.getElementById("app") as HTMLDivElement
 const appRoot = ReactDOM.createRoot(rootElement)
 appRoot.render(
+    <>
     <Sidebar />
+    <ProjectsPage />
+    </>
 )
 
 
