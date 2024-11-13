@@ -1,6 +1,13 @@
 import * as React from "react"
 
 export function ProjectsPage() {
+    const onNewProjectClick = () => {
+        const modal = document.getElementById("new-project-modal")
+        if (!(modal && modal instanceof HTMLDialogElement)) {
+            return
+        } 
+        modal.showModal()
+    }
     return(
         <div className="page" id="projects-page" style={{display: "flex"}}>
             <dialog id="new-project-modal">
@@ -69,7 +76,7 @@ export function ProjectsPage() {
                 <div style={{display: "flex", alignItems: "center", columnGap: "15px"}}>
                     <span id="import-projects-btn" className="material-icons-round action-icon">file_upload</span>
                     <span id="export-projects-btn" className="material-icons-round action-icon">file_download</span>
-                    <button id="new-project-btn"><span className="material-icons-round">add</span>New project</button>
+                    <button onClick={onNewProjectClick} id="new-project-btn"><span className="material-icons-round">add</span>New project</button>
                 </div>
             </header>
             <div id="projects-list">
