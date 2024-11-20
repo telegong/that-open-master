@@ -5,8 +5,8 @@ import { ProjectsPage } from "./react-components/ProjectsPage.tsx"
 
 import { color } from "three/examples/jsm/nodes/Nodes.js"
 import * as OBC from "openbim-components"
-import { Project, IProject, UserRole, ProjectStatus } from "./classes/Project.ts"
-import { ProjectsManager } from "./classes/ProjectsManager.ts"
+// import { Project, IProject, UserRole, ProjectStatus } from "./classes/Project.ts"
+// import { ProjectsManager } from "./classes/ProjectsManager.ts"
 import * as THREE from "three"
 
 import { GUI } from "three/examples/jsm/libs/lil-gui.module.min.js";
@@ -44,19 +44,19 @@ function toggleModal (id: string, action: "show" | "hide") {
     }             
 }
 
-let projectsListUI = document.getElementById("projects-list") as HTMLElement
-const projectsManager = new ProjectsManager(projectsListUI)
+// let projectsListUI = document.getElementById("projects-list") as HTMLElement
+// const projectsManager = new ProjectsManager(projectsListUI)
 
-const newProjectBtn = document.getElementById("new-project-btn")
-if (newProjectBtn) {
-    newProjectBtn.addEventListener("click",()=>{
-        document.getElementsByName('finishDate')[0].valueAsDate = new Date(projectsManager.y4m2d2(Date()))
-        toggleModal("new-project-modal","show")
-        projectsListUI = projectsManager.ui
-    } )
-} else {
-    console.warn("New projects button was not found")
-}
+// const newProjectBtn = document.getElementById("new-project-btn")
+// if (newProjectBtn) {
+//     newProjectBtn.addEventListener("click",()=>{
+//         document.getElementsByName('finishDate')[0].valueAsDate = new Date(projectsManager.y4m2d2(Date()))
+//         toggleModal("new-project-modal","show")
+//         projectsListUI = projectsManager.ui
+//     } )
+// } else {
+//     console.warn("New projects button was not found")
+// }
 
 function navPageSwitcher (id : string) {
     const pages = document.querySelectorAll('.page')
@@ -83,44 +83,44 @@ if (usersListPageBtn) {
     console.warn("Users List button was not found")
 }
 
-//====Get created values from form:생성 프로젝트 양식 값 가져오기=====
-const projectForm = document.getElementById("new-project-form")
+// //====Get created values from form:생성 프로젝트 양식 값 가져오기=====
+// const projectForm = document.getElementById("new-project-form")
 
-if (projectForm && projectForm instanceof HTMLFormElement) {
-    projectForm.addEventListener("submit", (e) => {
-        e.preventDefault()
-        const formData = new FormData(projectForm) 
-        const projectData: IProject = {
-            name:formData.get("name") as string, 
-            description:formData.get("description") as string, 
-            userRole: formData.get("userRole") as UserRole,
-            status: formData.get('status') as ProjectStatus,
-            finishDate: new Date(formData.get('finishDate') as string),  
-        }
-        try {
-            const project = projectsManager.newProject(projectData)
-            projectForm.reset()
-            toggleModal("new-project-modal","hide")
-        } catch (err) {
-            const errorMessage = document.getElementById("error-message") as HTMLElement
-            errorMessage.textContent=`${err.message}`
-            toggleModal("error-message-modal", "show")
-        }
-    })    
+// if (projectForm && projectForm instanceof HTMLFormElement) {
+//     projectForm.addEventListener("submit", (e) => {
+//         e.preventDefault()
+//         const formData = new FormData(projectForm) 
+//         const projectData: IProject = {
+//             name:formData.get("name") as string, 
+//             description:formData.get("description") as string, 
+//             userRole: formData.get("userRole") as UserRole,
+//             status: formData.get('status') as ProjectStatus,
+//             finishDate: new Date(formData.get('finishDate') as string),  
+//         }
+//         try {
+//             const project = projectsManager.newProject(projectData)
+//             projectForm.reset()
+//             toggleModal("new-project-modal","hide")
+//         } catch (err) {
+//             const errorMessage = document.getElementById("error-message") as HTMLElement
+//             errorMessage.textContent=`${err.message}`
+//             toggleModal("error-message-modal", "show")
+//         }
+//     })    
 
-    const errorMessagCheckBTN = document.getElementById("error-message-check-button") as HTMLButtonElement
-    errorMessagCheckBTN.addEventListener("click",()=>{
-        toggleModal("error-message-modal","hide")
-    })
+//     const errorMessagCheckBTN = document.getElementById("error-message-check-button") as HTMLButtonElement
+//     errorMessagCheckBTN.addEventListener("click",()=>{
+//         toggleModal("error-message-modal","hide")
+//     })
 
-    const projectInputCancelBTN = document.getElementById("project-input-canel") as HTMLButtonElement
-    projectInputCancelBTN.addEventListener("click", () => {
-        projectForm.reset()
-        toggleModal("new-project-modal","hide")
-    })
-} else {
-    console.warn("The project form was not found. Check the ID!")
-}
+//     const projectInputCancelBTN = document.getElementById("project-input-canel") as HTMLButtonElement
+//     projectInputCancelBTN.addEventListener("click", () => {
+//         projectForm.reset()
+//         toggleModal("new-project-modal","hide")
+//     })
+// } else {
+//     console.warn("The project form was not found. Check the ID!")
+// }
 
 
 const exportProjectsBtn = document.getElementById("export-projects-btn")
