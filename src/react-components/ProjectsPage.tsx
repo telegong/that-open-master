@@ -1,6 +1,10 @@
 import * as React from "react"
+import { Project, IProject, UserRole, ProjectStatus } from "../classes/Project.ts"
+import { ProjectsManager } from "../classes/ProjectsManager.ts"
 
 export function ProjectsPage() {
+    const projectsManager = new ProjectsManager()
+
     const onNewProjectClick = () => {
         const modal = document.getElementById("new-project-modal")
         if (!(modal && modal instanceof HTMLDialogElement)) {
@@ -8,10 +12,39 @@ export function ProjectsPage() {
         } 
         modal.showModal()
     }
+
+    const onFormSubmit = (e: React.FormEvent) => {
+        const projectForm = document.getElementById("new-project-form")
+        if (!(projectForm && projectForm instanceof HTMLFormElement)) {return}
+        e.preventDefault()
+        const formData = new FormData(projectForm) 
+        const projectData: IProject = {
+            name:formData.get("name") as string, 
+            description:formData.get("description") as string, 
+            userRole: formData.get("userRole") as UserRole,
+            status: formData.get('status') as ProjectStatus,
+            finishDate: new Date(formData.get('finishDate') as string),  
+        }
+        try {
+            const project = projectsManager.newProject(projectData)
+            console.log(project)
+            projectForm.reset()
+            const modal = document.getElementById("new-project-modal")
+            if (!(modal && modal instanceof HTMLDialogElement)) {return} 
+            modal.close()
+        } catch (err) {
+            const errorMessage = document.getElementById("error-message") as HTMLElement
+            errorMessage.textContent=`${err.message}`
+            const modal = document.getElementById("error-message-modal")
+            if (!(modal && modal instanceof HTMLDialogElement)) {return} 
+            modal.show()
+        }
+    }
+
     return(
         <div className="page" id="projects-page" style={{display: "flex"}}>
             <dialog id="new-project-modal">
-                <form id="new-project-form">
+                <form onSubmit={(e) => {onFormSubmit(e)}} id="new-project-form">
                     <h2>New Project</h2>
                     <div className="input-list">
                         <div className="form-field-container">

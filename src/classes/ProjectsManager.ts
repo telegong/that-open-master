@@ -4,10 +4,8 @@ import { IProject, Project, ITodo, Todo, defaultTodo } from "./Project"
 export class ProjectsManager {
     list: Project[] = []
 
-    ui: HTMLElement
-
-    constructor(container: HTMLElement) {
-        this.ui = container
+      constructor() {
+        
     }
 
     newProject(data: IProject) {
@@ -30,7 +28,7 @@ export class ProjectsManager {
             this.setDetailsPage(project)
             this.updateTodoListUI(project)
         })
-        this.ui.append(project.ui)
+
         this.list.push(project)
         return project
     }
