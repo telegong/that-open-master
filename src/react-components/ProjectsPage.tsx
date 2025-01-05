@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Project, IProject, UserRole, ProjectStatus } from "../classes/Project.ts"
 import { ProjectsManager } from "../classes/ProjectsManager.ts"
+import { ProjectCard } from "./ProjectCard.tsx"
 
 export function ProjectsPage() {
     const projectsManager = new ProjectsManager()
@@ -113,34 +114,10 @@ export function ProjectsPage() {
                 </div>
             </header>
             <div id="projects-list">
-                {/* <!-- <div className="project-card">
-                    <div className="card-header">
-                        <p style="background-color: #ca8134; padding: 10px; border-radius: 8px; aspect-ratio: 1;">HC</p>
-                        <div>
-                            <h5>Project Name</h5>
-                            <p>Project Description Goes Here...</p>
-                        </div>
-                    </div>
-                    <div className="card-content">
-                        <div className="card-property">
-                            <p style="color: #969696;">Status</p>
-                            <p>Active</p>
-                        </div>
-                        <div className="card-property">
-                            <p style="color: #969696;">Role</p>
-                            <p>Engineer</p>
-                        </div>
-                        <div className="card-property">
-                            <p style="color: #969696;">Cost</p>
-                            <p>$2'000.000</p>
-                        </div>
-                        <div className="card-property">
-                            <p style="color: #969696;">Estimated Progress</p>
-                            <p>45%</p>
-                        </div>
-
-                    </div>
-                </div> --> */}
+                <ProjectCard/>
+                <ProjectCard/>
+                <ProjectCard/>
+                <ProjectCard/>
 
             </div>
         </div>

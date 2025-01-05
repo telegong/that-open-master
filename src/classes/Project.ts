@@ -43,7 +43,7 @@ export class Project {
     finishDate: Date
 
     //Class internals
-    ui: HTMLDivElement
+    // ui: HTMLDivElement
     cost: number = 100000
     progress: number = 0.9
     id: string
@@ -63,55 +63,55 @@ export class Project {
         if(!this.id){
             this.id = uuidv4()
         }
-        this.setUI()
+        // this.setUI()
     } 
 
-    //creates the project card UI
-    setUI() {
-        //if (this.ui) {return}
-        this.ui = document.createElement("div")
-        this.ui.className = "project-card"
-        const idx = Math.floor(Math.random() * 5)  // background-color: #ca8134; //var(--icon-char-bg-color${idx});  
-        this.ui.setAttribute("icon-color", `var(--icon-char-bg-color${idx})`)
-        this.updateUI()       
-        // console.log(this.ui)
-    }
+    // //creates the project card UI
+    // setUI() {
+    //     //if (this.ui) {return}
+    //     this.ui = document.createElement("div")
+    //     this.ui.className = "project-card"
+    //     const idx = Math.floor(Math.random() * 5)  // background-color: #ca8134; //var(--icon-char-bg-color${idx});  
+    //     this.ui.setAttribute("icon-color", `var(--icon-char-bg-color${idx})`)
+    //     this.updateUI()       
+    //     // console.log(this.ui)
+    // }
     
-    //update the project card UI
-    updateUI() {
+    // //update the project card UI
+    // updateUI() {
 
-        this.ui.setAttribute("pname", this.name)
-        this.ui.innerHTML = `
-        <div class="card-header">
-            <p style="background-color: ${this.ui.getAttribute("icon-color")};
-                    padding: 5px; border-radius: 8px; aspect-ratio: 1;
-                    text-transform: uppercase; text-align: center; width: 36px;
-                    display: flex; flex-direction: column; justify-content: center;"  >
-                ${this.name.slice(0,2)}</p>
-            <div>
-                <h5>${this.name}</h5>
-                <!--h5>${this.id}</h5-->
-                <p>${this.description}</p>
-            </div>
-        </div>
-        <div class="card-content">
-            <div class="card-property">
-                <p style="color: #969696;">Status</p>
-                <p>${this.status}</p>
-            </div>
-            <div class="card-property">
-                <p style="color: #969696;">Role</p>
-                <p>${this.userRole}</p>
-            </div>
-            <div class="card-property">
-                <p style="color: #969696;">Cost</p>
-                <p>$${this.cost}</p>
-            </div>
-            <div class="card-property">
-                <p style="color: #969696;">Estimated Progress</p>
-                <p>${this.progress * 100}%</p>
-            </div>
-        </div> `
-    }
+    //     this.ui.setAttribute("pname", this.name)
+    //     this.ui.innerHTML = `
+    //     <div class="card-header">
+    //         <p style="background-color: ${this.ui.getAttribute("icon-color")};
+    //                 padding: 5px; border-radius: 8px; aspect-ratio: 1;
+    //                 text-transform: uppercase; text-align: center; width: 36px;
+    //                 display: flex; flex-direction: column; justify-content: center;"  >
+    //             ${this.name.slice(0,2)}</p>
+    //         <div>
+    //             <h5>${this.name}</h5>
+    //             <!--h5>${this.id}</h5-->
+    //             <p>${this.description}</p>
+    //         </div>
+    //     </div>
+    //     <div class="card-content">
+    //         <div class="card-property">
+    //             <p style="color: #969696;">Status</p>
+    //             <p>${this.status}</p>
+    //         </div>
+    //         <div class="card-property">
+    //             <p style="color: #969696;">Role</p>
+    //             <p>${this.userRole}</p>
+    //         </div>
+    //         <div class="card-property">
+    //             <p style="color: #969696;">Cost</p>
+    //             <p>$${this.cost}</p>
+    //         </div>
+    //         <div class="card-property">
+    //             <p style="color: #969696;">Estimated Progress</p>
+    //             <p>${this.progress * 100}%</p>
+    //         </div>
+    //     </div> `
+    // }
 }
 

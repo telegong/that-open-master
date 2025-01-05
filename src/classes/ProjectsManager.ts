@@ -19,15 +19,15 @@ export class ProjectsManager {
             // status: false
         //})
         // console.log("newProjcet default todo: ", project.todoList)                      
-        project.ui.addEventListener("click", () => {
-            const projectsPage = document.getElementById("projects-page")
-            const detailsPage = document.getElementById("project-details")
-            if (!(projectsPage && detailsPage)) {return}
-            projectsPage.style.display = "none"
-            detailsPage.style.display = "flex"
-            this.setDetailsPage(project)
-            this.updateTodoListUI(project)
-        })
+        // project.ui.addEventListener("click", () => {
+        //     const projectsPage = document.getElementById("projects-page")
+        //     const detailsPage = document.getElementById("project-details")
+        //     if (!(projectsPage && detailsPage)) {return}
+        //     projectsPage.style.display = "none"
+        //     detailsPage.style.display = "flex"
+        //     this.setDetailsPage(project)
+        //     this.updateTodoListUI(project)
+        // })
 
         this.list.push(project)
         return project
@@ -46,50 +46,50 @@ export class ProjectsManager {
         }        
     }
 
-    private setDetailsPage(project: Project){
-        const detailsPage = document.getElementById("project-details")
-        if (!detailsPage) { return }
-        const details = {
-            name: project.name,
-            icon_char: [project.name.slice(0,2),
-                        project.ui.getAttribute("icon-color")],
-            description: project.description,
-            name_s: project.name,
-            description_s: project.description,
-            status: project.status,
-            userRole: project.userRole,
-            cost: project.cost,
-            finishDate: project.finishDate,
-            progress: project.progress
-        }
-        for (const key in details) {
-            const detail = detailsPage.querySelector(`[data-project-info='${key}']`)
-            if (detail) {
-                const value = details[key]
-                switch (key) {
-                    case "cost":
-                        detail.textContent = "$" + value
-                        break;
-                    case "finishDate":                        
-                        detail.textContent = this.y4m2d2(value)
-                        break;
-                    case "progress":
-                        detail.textContent = `${value * 100}%`
-                        detail.style.width = `${value * 100}%`
-                        break;
-                    case "icon_char":
-                        detail.textContent = value[0]
-                        detail.style.backgroundColor = value[1]
-                        break;
-                    default:
-                        detail.textContent = value
+    // private setDetailsPage(project: Project){
+    //     const detailsPage = document.getElementById("project-details")
+    //     if (!detailsPage) { return }
+    //     const details = {
+    //         name: project.name,
+    //         icon_char: [project.name.slice(0,2),
+    //                     project.ui.getAttribute("icon-color")],
+    //         description: project.description,
+    //         name_s: project.name,
+    //         description_s: project.description,
+    //         status: project.status,
+    //         userRole: project.userRole,
+    //         cost: project.cost,
+    //         finishDate: project.finishDate,
+    //         progress: project.progress
+    //     }
+    //     for (const key in details) {
+    //         const detail = detailsPage.querySelector(`[data-project-info='${key}']`)
+    //         if (detail) {
+    //             const value = details[key]
+    //             switch (key) {
+    //                 case "cost":
+    //                     detail.textContent = "$" + value
+    //                     break;
+    //                 case "finishDate":                        
+    //                     detail.textContent = this.y4m2d2(value)
+    //                     break;
+    //                 case "progress":
+    //                     detail.textContent = `${value * 100}%`
+    //                     detail.style.width = `${value * 100}%`
+    //                     break;
+    //                 case "icon_char":
+    //                     detail.textContent = value[0]
+    //                     detail.style.backgroundColor = value[1]
+    //                     break;
+    //                 default:
+    //                     detail.textContent = value
                     
-                }
-            }
-        }  
-        console.log("setDetailsPage: ", project.name)
-        // this.updateTodoListUI(project)
-    }
+    //             }
+    //         }
+    //     }  
+    //     console.log("setDetailsPage: ", project.name)
+    //     // this.updateTodoListUI(project)
+    // }
 
 
     updateTodoListUI(project: Project){
@@ -137,15 +137,15 @@ export class ProjectsManager {
         if(projectName != updateData.name) {this.validProjectInput(updateData)}
         const project: Project = this.getProjectByName(projectName) as Project
         Object.assign(project, updateData)   
-        project.updateUI()
-        this.setDetailsPage(project)
+        // project.updateUI()
+        // this.setDetailsPage(project)
         return project
     }
 
     deleteProject(id: string) {
         const project = this.getProject(id)
         if(!project) { return }
-        project.ui.remove()
+        // project.ui.remove()
         const remaining = this.list.filter((project) => {
             return project.id !== id
         })
