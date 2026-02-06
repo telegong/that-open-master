@@ -1,5 +1,5 @@
 import * as React from "react";
-import companyLogo from "../../assets/company-logo.svg"
+import companyLogo from "./assets/company-logo.svg"
 
 export function Sidebar() {
     return(
