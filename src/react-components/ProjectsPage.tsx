@@ -4,7 +4,18 @@ import { ProjectsManager } from "../classes/ProjectsManager.ts"
 import { ProjectCard } from "./ProjectCard.tsx"
 
 export function ProjectsPage() {
-    const projectsManager = new ProjectsManager()
+    const [projectsManager] = React.useState(new ProjectsManager())
+    const [projects, setProjects] = React.useState<Project[]>(projectsManager.list)
+    projectsManager.onProjectCreated = () => {setProjects([...projectsManager.list])}
+    projectsManager.onProjectDeleted = () => {setProjects([...projectsManager.list])}
+
+    const projectCards = projects.map( (project) => {
+        return <ProjectCard project={project} key={project.id}/>
+    })
+
+    React.useEffect(() => {
+        console.log("Project updated", projects)
+    },[projects])
 
     const onNewProjectClick = () => {
         const modal = document.getElementById("new-project-modal")
@@ -114,11 +125,7 @@ export function ProjectsPage() {
                 </div>
             </header>
             <div id="projects-list">
-                <ProjectCard/>
-                <ProjectCard/>
-                <ProjectCard/>
-                <ProjectCard/>
-
+                {projectCards}
             </div>
         </div>
 

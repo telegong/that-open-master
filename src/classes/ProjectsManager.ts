@@ -3,8 +3,17 @@ import { IProject, Project, ITodo, Todo, defaultTodo } from "./Project"
 
 export class ProjectsManager {
     list: Project[] = []
+    onProjectCreated = (project :Project) => {}
+    onProjectDeleted = () => {}
 
       constructor() {
+        const project = this.newProject({
+            name: "Default Project",
+            description: "This is just a default app project",
+            status: "pending",
+            userRole: "architect",
+            finishDate: new Date()
+        })
         
     }
 
@@ -30,6 +39,7 @@ export class ProjectsManager {
         // })
 
         this.list.push(project)
+        this.onProjectCreated(project)
         return project
     }
 
@@ -41,9 +51,9 @@ export class ProjectsManager {
         if (nameInUse) {
             throw new Error(`A project with the name "${data.name}" already exists`)
         }
-        if (data.name.length < 5) {
-            throw new Error(`project name have to longer than 5 charactor`)
-        }        
+        // if (data.name.length < 5) {
+        //     throw new Error(`project name have to longer than 5 charactor`)
+        // }        
     }
 
     // private setDetailsPage(project: Project){
@@ -92,37 +102,37 @@ export class ProjectsManager {
     // }
 
 
-    updateTodoListUI(project: Project){
-        // set To-Do list
-        // let todoListUI = document.createElement("div")
-        let todoListUI = document.getElementById('todo-list') as HTMLDivElement
-        if (!todoListUI) {return}
-        todoListUI.innerHTML = ""
-        // console.log(`updateTodoListUI : 
-        //     project.name : ${project.name}, 
-        //     project : `,project)
-        // const todo = project.todoList[0]
-        project.todoList.forEach( todo => {
-            const datestr =(new Date(todo.msgDate)).toDateString().split(" ")
-            const msgdate = `${datestr[0]}, ${datestr[2]} ${datestr[1]}`
-            const todoDoneDimm = todo.status? 'style= "opacity: 50%;"': ''
-            const todoDone = todo.status? 'done': 'construction'
-            const todoitem =`
-            <div class="todo-item" ${todoDoneDimm}>
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div style="display: flex; column-gap: 15px; align-items: center;">
-                        <span name='todostatus' class="material-icons-round" style="padding: 10px; background-color: #686868; border-radius: 10px;">${todoDone}</span>
-                        <p name='todomessage'>${todo.message}</p>
-                    </div>
-                    <p style="text-wrap: nowrap; margin-left: 10px;">
-                    ${msgdate}</p>
-                </div>
-            </div>` 
-            todoListUI.innerHTML += todoitem
-        })
-        // todoListUI.remove()
+    // updateTodoListUI(project: Project){
+    //     // set To-Do list
+    //     // let todoListUI = document.createElement("div")
+    //     let todoListUI = document.getElementById('todo-list') as HTMLDivElement
+    //     if (!todoListUI) {return}
+    //     todoListUI.innerHTML = ""
+    //     // console.log(`updateTodoListUI : 
+    //     //     project.name : ${project.name}, 
+    //     //     project : `,project)
+    //     // const todo = project.todoList[0]
+    //     project.todoList.forEach( todo => {
+    //         const datestr =(new Date(todo.msgDate)).toDateString().split(" ")
+    //         const msgdate = `${datestr[0]}, ${datestr[2]} ${datestr[1]}`
+    //         const todoDoneDimm = todo.status? 'style= "opacity: 50%;"': ''
+    //         const todoDone = todo.status? 'done': 'construction'
+    //         const todoitem =`
+    //         <div class="todo-item" ${todoDoneDimm}>
+    //             <div style="display: flex; justify-content: space-between; align-items: center;">
+    //                 <div style="display: flex; column-gap: 15px; align-items: center;">
+    //                     <span name='todostatus' class="material-icons-round" style="padding: 10px; background-color: #686868; border-radius: 10px;">${todoDone}</span>
+    //                     <p name='todomessage'>${todo.message}</p>
+    //                 </div>
+    //                 <p style="text-wrap: nowrap; margin-left: 10px;">
+    //                 ${msgdate}</p>
+    //             </div>
+    //         </div>` 
+    //         todoListUI.innerHTML += todoitem
+    //     })
+    //     // todoListUI.remove()
 
-    }
+    // }
 
     getProject(id: string) {
         const project = this.list.find((project) => {
@@ -150,6 +160,7 @@ export class ProjectsManager {
             return project.id !== id
         })
         this.list = remaining
+        this.onProjectDeleted()
     }
         
     totalCostOfAllProjects() {
